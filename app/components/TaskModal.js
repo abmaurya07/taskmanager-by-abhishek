@@ -1,7 +1,8 @@
 import React from 'react';
 import TaskForm from './TaskForm';
+import TaskView from './TaskView'
 
-const TaskModal = ({ showForm, setShowForm, selectedTask }) => (
+const TaskModal = ({ showForm, setShowForm, selectedTask, viewTask }) => (
   showForm && (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-8 rounded shadow-lg relative">
@@ -11,7 +12,8 @@ const TaskModal = ({ showForm, setShowForm, selectedTask }) => (
         >
           &times;
         </button>
-        <TaskForm task={selectedTask} />
+        
+        {viewTask ? <TaskView task={selectedTask} /> : <TaskForm task={selectedTask} /> }
       </div>
     </div>
   )

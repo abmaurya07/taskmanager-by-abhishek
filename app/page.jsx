@@ -12,6 +12,7 @@ import TaskModal from './components/TaskModal';
 const Home = () => {
   const [showForm, setShowForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showViewForm, setShowViewForm] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
 
   const dispatch = useDispatch();
@@ -88,6 +89,11 @@ const Home = () => {
     setShowEditForm(true);
   };
 
+  const handleViewTask = (task) => {
+    setSelectedTask(task);
+    setShowViewForm(true);
+  };
+
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-4">
@@ -108,12 +114,17 @@ const Home = () => {
         handleSelectTask={handleSelectTask} 
         handleStatusChange={handleStatusChange} 
         handleEditTask={handleEditTask} 
+        handleViewTask={handleViewTask}
         lastTaskRef={lastTaskRef}
         handleDelete={handleDelete}
+        
       />
-      <TaskModal showForm={showForm} setShowForm={setShowForm} selectedTask={selectedTask} />
+      <TaskModal showForm={showForm} setShowForm={setShowForm}  />
       {showEditForm && selectedTask && (
         <TaskModal showForm={showEditForm} setShowForm={setShowEditForm} selectedTask={selectedTask} />
+      )}
+      {showViewForm && selectedTask && (
+        <TaskModal showForm={showViewForm} viewTask={true} setShowForm={setShowViewForm} selectedTask={selectedTask} />
       )}
     </div>
   );

@@ -2,3 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+
+  
+select {
+    appearance: none; /* Remove default browser styling */
+    -moz-appearance: none; /* For Firefox */
+    -webkit-appearance: none; /* For Safari and Chrome */
+  }
+
+
+  /* Prevent color change on hover */
+select option:hover {
+    background-color: inherit; /* Prevent background color change */
+    color: inherit; /* Prevent text color change */
+  }
+
+  
+  .cell-max-width{
+    max-width: 160px;
+  }
+  .text-red {
+    color: #e77f89;
+  }
+  
+  .text-gray {
+    color: #8972f3;
+  }
+  
+  .text-green {
+    color: #58c2a9;
+  }
+  
+  
