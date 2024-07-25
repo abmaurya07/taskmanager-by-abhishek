@@ -3,7 +3,7 @@ import withAuth from './utils/withAuth';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedTasks, setPage } from './redux/TasksData/tasksSlice';
-import { addTask, deleteSelectedTasks, deleteTask, fetchTasks, updateTaskStatus } from './redux/TasksData/tasksActions';
+import { addTask, deleteSelectedTasks, deleteTask, fetchTasks, getTaskSummary, updateTaskStatus } from './redux/TasksData/tasksActions';
 import TaskTable from './components/TaskTable';
 import TaskSummary from './components/TaskSummary';
 import TaskControls from './components/TaskControls';
@@ -15,20 +15,28 @@ const Home = () => {
   const [selectedTask, setSelectedTask] = useState(null);
 
   const dispatch = useDispatch();
-  const { tasks, status, loading, hasMore, page, selectedTasks } = useSelector((state) => state.tasks);
+  const { tasks, status, loading, hasMore, page, selectedTasks, taskSummary } = useSelector((state) => state.tasks);
   const observer = useRef();
 
   const addTasksss = () => {
     
     for(let i=0; i<100; i++){
 
-      dispatch(addTask({ title: 'Task ' + i, description: 'Description ' + i, dueDate:  Date.now(), status: 'To Do'}))
+      dispatch(addTask({ title: 'Task ' + i, description: 'Description ' + i, dueDate:  Date.now(), status: 'To Do'}))  
     }
   }
 
   useEffect(() => {
 
+    dispatch(getTaskSummary())
+    
+
+  },[tasks])
+
+  useEffect(() => {
+
       dispatch(fetchTasks(page));
+
     
   }, [page, dispatch]);
 
@@ -48,6 +56,7 @@ const Home = () => {
 
   const handleDelete = (taskId) => {
     dispatch(deleteTask(taskId));
+
   };
 
   const handleDeleteSelected = () => {
@@ -56,6 +65,7 @@ const Home = () => {
 
   const handleStatusChange = (status, taskId) => {
     dispatch(updateTaskStatus({ taskId, status }));
+
   };
 
   const lastTaskRef = useCallback(node => {
@@ -71,12 +81,7 @@ const Home = () => {
 
   const filteredTasks = tasks.filter(task => status === 'All' || task.status === status);
 
-  const taskSummary = {
-    total: tasks.length,
-    todo: tasks.filter(task => task.status === 'To Do').length,
-    inProgress: tasks.filter(task => task.status === 'In Progress').length,
-    done: tasks.filter(task => task.status === 'Done').length,
-  };
+
 
   const handleEditTask = (task) => {
     setSelectedTask(task);
@@ -103,6 +108,7 @@ const Home = () => {
         handleStatusChange={handleStatusChange} 
         handleEditTask={handleEditTask} 
         lastTaskRef={lastTaskRef}
+        handleDelete={handleDelete}
       />
       <TaskModal showForm={showForm} setShowForm={setShowForm} selectedTask={selectedTask} />
       {showEditForm && selectedTask && (

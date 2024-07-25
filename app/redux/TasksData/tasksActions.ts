@@ -57,3 +57,10 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (page: numb
     return { taskId, status };
   });
 
+  export const getTaskSummary = createAsyncThunk('tasks/getTaskSummary', async () => {
+    const response = await axios.get('http://localhost:5000/api/tasks/summary', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }) 
+

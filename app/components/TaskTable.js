@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import {  sortByDate } from '../redux/TasksData/tasksSlice';
 
 
-const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange, handleEditTask, lastTaskRef }) => {
+const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange, handleEditTask, lastTaskRef, handleDelete }) => {
 
   console.log(tasks)
   const [sortingOrder, setSortingOrder] = useState('asc')
@@ -74,6 +74,13 @@ const dispatch = useDispatch()
                 className="p-2 bg-yellow-500 text-white"
               >
                 Edit
+              </button>
+
+              <button 
+                onClick={() => handleDelete(task._id)} 
+                className="p-2 bg-red-500 text-white ml-2"
+              >
+                Delete
               </button>
             </td>
           </tr>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTask, updateTask } from '../redux/TasksData/tasksActions';
+import { addTask, getTaskSummary, updateTask } from '../redux/TasksData/tasksActions';
 
 const TaskForm = ({  task = null }) => {
   const [title, setTitle] = useState('');
@@ -32,6 +32,8 @@ const TaskForm = ({  task = null }) => {
       } else {
          dispatch(addTask(newTask))
       }
+
+      
       setTitle('');
       setDescription('');
       setDueDate('');

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchTasks, deleteTask, deleteSelectedTasks, updateTaskStatus, addTask, updateTask } from './tasksActions'
+import { fetchTasks, deleteTask, deleteSelectedTasks, updateTaskStatus, addTask, updateTask, getTaskSummary } from './tasksActions'
 
 
 interface Task {
@@ -13,10 +13,10 @@ interface Task {
 interface TasksState {
   tasks: Task[];
   taskSummary: {
-    toDo: number;
-    inProgress: number;
-    done: number;
-    total: number;
+    'All': number,
+    'Done': number,
+    'In Progress': number,
+    'To Do': number
   }
   loading: boolean;
   hasMore: boolean;
@@ -31,10 +31,10 @@ const initialState: TasksState = {
   loading: false,
   hasMore: true,
   taskSummary: {
-    toDo: 0,
-    inProgress: 0,
-    done: 0,
-    total: 0
+    'All': 0,
+    'Done': 0,
+    'In Progress': 0,
+    'To Do': 0
   },
   page: 1,
   selectedTasks: [],
@@ -115,6 +115,10 @@ const tasksSlice = createSlice({
         const { taskId, status } = action.payload;
         const task = state.tasks.find(task => task._id === taskId);
         if (task) task.status = status;
+      })
+      .addCase(getTaskSummary.fulfilled, (state, action) => {
+        const taskSummary = action.payload.taskSummary
+        state.taskSummary = taskSummary;
       });
   },
 });
