@@ -1,6 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react';
+import WithRedux from './WithRedux';
 
 const withAuth = (WrappedComponent) => {
   return (props) => {
@@ -17,7 +18,7 @@ const withAuth = (WrappedComponent) => {
       return null; // Or a loading spinner
     }
 
-    return <WrappedComponent {...props} />;
+    return <WithRedux><WrappedComponent {...props} /></WithRedux>;
   };
 };
 
