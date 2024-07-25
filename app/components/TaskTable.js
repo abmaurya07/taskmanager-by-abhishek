@@ -1,16 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaSortAmountDownAlt } from "react-icons/fa";
+import { FaSortAmountUp } from "react-icons/fa";
+import { FaFilter } from "react-icons/fa";
 
-const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange, handleEditTask, lastTaskRef }) => (
+import { useDispatch } from 'react-redux';
+import {  sortByDate } from '../redux/TasksData/tasksSlice';
+
+
+const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange, handleEditTask, lastTaskRef }) => {
+
+  console.log(tasks)
+  const [sortingOrder, setSortingOrder] = useState('asc')
+
+const dispatch = useDispatch()
+   const handleSort = (order) =>{
+
+     dispatch(sortByDate(order))
+
+     if(order === 'asc'){ 
+
+      setSortingOrder('desc')
+     } else if(order === 'desc'){
+      setSortingOrder('asc')
+     }
+     
+
+   }
+
+  
+  return (
   <div className="overflow-x-auto bg-white shadow rounded mt-4">
+ 
     <table className="min-w-full">
       <thead>
         <tr>
           <th className="px-4 py-2 border"></th>
           <th className="px-4 py-2 border">Task Name</th>
           <th className="px-4 py-2 border">Description</th>
-          <th className="px-4 py-2 border">Due Date</th>
+          <th className="px-4 py-2 border">Due Date 
+            {sortingOrder === 'desc' ? <FaSortAmountDownAlt onClick={() => handleSort('desc')} /> : <FaSortAmountUp onClick={() => handleSort('asc')} />} </th>
           <th className="px-4 py-2 border">Status</th>
-          <th className="px-4 py-2 border"></th>
+          <th className="px-4 py-2 border">Actions</th>
+
         </tr>
       </thead>
       <tbody>
@@ -50,6 +81,6 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
       </tbody>
     </table>
   </div>
-);
+)};
 
 export default TaskTable;

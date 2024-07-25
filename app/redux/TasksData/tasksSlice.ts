@@ -12,6 +12,12 @@ interface Task {
 
 interface TasksState {
   tasks: Task[];
+  taskSummary: {
+    toDo: number;
+    inProgress: number;
+    done: number;
+    total: number;
+  }
   loading: boolean;
   hasMore: boolean;
   page: number;
@@ -24,6 +30,12 @@ const initialState: TasksState = {
   tasks: [],
   loading: false,
   hasMore: true,
+  taskSummary: {
+    toDo: 0,
+    inProgress: 0,
+    done: 0,
+    total: 0
+  },
   page: 1,
   selectedTasks: [],
   selectedTask: null,
@@ -42,6 +54,18 @@ const tasksSlice = createSlice({
     },
     setSelectedTasks(state, action) {
       state.selectedTasks = action.payload;
+    },
+    sortByDate(state, action) {
+
+      
+      if (action.payload === 'asc') {
+
+        state.tasks.sort((a, b) =>  new Date(a.dueDate) - new Date(b.dueDate));
+      } else if (action.payload === 'desc') {
+        state.tasks.sort((a, b) =>  new Date(b.dueDate) -  new Date(a.dueDate));
+      }
+
+
     },
     toggleSelectTask(state, action) {
       const taskId = action.payload;
@@ -95,6 +119,6 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { setSelectedTask, setSelectedTasks, toggleSelectTask, setPage, setHasMore } = tasksSlice.actions;
+export const { setSelectedTask, setSelectedTasks, toggleSelectTask, setPage, setHasMore, sortByDate } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
