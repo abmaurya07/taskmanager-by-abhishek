@@ -55,6 +55,9 @@ const tasksSlice = createSlice({
     setSelectedTasks(state, action) {
       state.selectedTasks = action.payload;
     },
+    setFilterStatus(state, action) {
+      state.status = action.payload;
+    },
     sortByDate(state, action) {
 
       
@@ -123,6 +126,6 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { setSelectedTask, setSelectedTasks, toggleSelectTask, setPage, setHasMore, sortByDate } = tasksSlice.actions;
+export const { setSelectedTask, setSelectedTasks, toggleSelectTask,setFilterStatus, setPage, setHasMore, sortByDate } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

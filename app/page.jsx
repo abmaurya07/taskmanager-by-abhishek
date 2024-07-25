@@ -99,6 +99,7 @@ const Home = () => {
       <TaskControls 
         handleSelectAll={handleSelectAll} 
         handleDeleteSelected={handleDeleteSelected} 
+        selectedTasks={selectedTasks}
         allSelected={selectedTasks.length === filteredTasks.length}
       />
       <TaskTable 

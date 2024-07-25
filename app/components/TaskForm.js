@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTask, getTaskSummary, updateTask } from '../redux/TasksData/tasksActions';
+import { addTask, updateTask } from '../redux/TasksData/tasksActions';
 
-const TaskForm = ({  task = null }) => {
+const TaskForm = ({ task = null }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [status, setStatus] = useState('To Do');
   const [isEditing, setIsEditing] = useState(false);
-
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (task) {
@@ -22,25 +20,21 @@ const TaskForm = ({  task = null }) => {
     }
   }, [task]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const newTask = { title, description, dueDate, status };
 
-    try {
-      if (isEditing) {
-         dispatch(updateTask({id: task._id,task:newTask}))
-      } else {
-         dispatch(addTask(newTask))
-      }
-
-      
-      setTitle('');
-      setDescription('');
-      setDueDate('');
-      setStatus('To Do');
-    } catch (error) {
-      console.error('Error saving task:', error);
+    if (isEditing) {
+      dispatch(updateTask({ id: task._id, task: newTask }));
+    } else {
+      dispatch(addTask(newTask));
     }
+
+    setTitle('');
+    setDescription('');
+    setDueDate('');
+    setStatus('To Do');
+    setIsEditing(false);
   };
 
   return (

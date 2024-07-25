@@ -33,6 +33,8 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (page: numb
     });
     return response.data;
   });
+
+
   
   export const deleteTask = createAsyncThunk('tasks/deleteTask', async (taskId: string) => {
     await axios.delete(`http://localhost:5000/api/tasks/${taskId}`, {
