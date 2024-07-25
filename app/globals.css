@@ -3,12 +3,16 @@
 @tailwind utilities;
 
 
+body {
+        background-color: #f4f7fc;
+    }
   
 select {
     appearance: none; /* Remove default browser styling */
     -moz-appearance: none; /* For Firefox */
     -webkit-appearance: none; /* For Safari and Chrome */
   }
+
 
 
   /* Prevent color change on hover */

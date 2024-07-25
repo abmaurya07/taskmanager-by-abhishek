@@ -8,6 +8,8 @@ import TaskTable from './components/TaskTable';
 import TaskSummary from './components/TaskSummary';
 import TaskControls from './components/TaskControls';
 import TaskModal from './components/TaskModal';
+import { FaPlus } from "react-icons/fa";
+
 
 const Home = () => {
   const [showForm, setShowForm] = useState(false);
@@ -19,13 +21,7 @@ const Home = () => {
   const { tasks, status, loading, hasMore, page, selectedTasks, taskSummary } = useSelector((state) => state.tasks);
   const observer = useRef();
 
-  const addTasksss = () => {
-    
-    for(let i=0; i<100; i++){
 
-      dispatch(addTask({ title: 'Task ' + i, description: 'Description ' + i, dueDate:  Date.now(), status: 'To Do'}))  
-    }
-  }
 
   useEffect(() => {
 
@@ -97,9 +93,14 @@ const Home = () => {
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl">Tasks</h1>
-        <button onClick={() => setShowForm(true)} className="p-2 bg-blue-500 text-white">Add New Task</button>
-      <button onClick={addTasksss} className="p-2 bg-blue-500 text-white">Add 100 Tasks</button>
+        <h1 className="text-2xl font-semibold text-gray-800">Tasks Dashboard</h1>
+        <button
+    onClick={() => setShowForm(true)}
+    className="flex items-center space-x-2 p-3 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-300"
+  >
+    <FaPlus />
+    <span> New Task</span>
+  </button>
       </div>
       <TaskSummary taskSummary={taskSummary} />
       <TaskControls 

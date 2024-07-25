@@ -1,22 +1,30 @@
 import React from 'react';
 
 const TaskSummary = ({ taskSummary }) => (
-  <div className="bg-white p-4 shadow rounded mb-4 flex space-x-4">
-    <div className="flex-1 text-center">
-      <h3 className="font-bold">Total Tasks</h3>
-      <p>{taskSummary['All']}</p>
+  <div className="bg-white p-4 shadow-lg rounded-xl mb-4 flex flex-wrap gap-4 text-start">
+    <div className="flex-1 min-w-[200px] border-r-2 border-gray-200 p-4 flex justify-center">
+      <div>
+        <h3 className="font-bold text-slate-700 text-xl">TOTAL TASKS</h3>
+        <p className='text-3xl font-semibold text-purple-600'>{taskSummary['All']}</p>
+      </div>
     </div>
-    <div className="flex-1 text-center">
-      <h3 className="font-bold">Yet to Start</h3>
-      <p>{taskSummary['To Do']}</p>
+    <div className="flex-1 min-w-[200px] border-r-2 border-gray-200 p-4 flex justify-center">
+      <div>
+        <h3 className="font-semibold text-gray-600 text-lg">YET TO START</h3>
+        <p className='font-semibold text-gray-600 text-2xl'>{taskSummary['To Do']}</p>
+      </div>
     </div>
-    <div className="flex-1 text-center">
-      <h3 className="font-bold">In Progress</h3>
-      <p>{taskSummary['In Progress']}</p>
+    <div className="flex-1 min-w-[200px] border-r-2 border-gray-200 p-4 flex justify-center">
+      <div>
+        <h3 className="font-semibold text-gray-600 text-lg">IN PROGRESS</h3>
+        <p className='font-semibold text-gray-600 text-2xl'>{taskSummary['In Progress']}</p>
+      </div>
     </div>
-    <div className="flex-1 text-center">
-      <h3 className="font-bold">Completed</h3>
-      <p>{taskSummary['Done']}</p>
+    <div className="flex-1 min-w-[200px] p-4 flex justify-center">
+      <div>
+        <h3 className="font-semibold text-gray-600 text-lg">COMPLETED</h3>
+        <p className='font-semibold text-gray-600 text-2xl'>{taskSummary['Done']}</p>
+      </div>
     </div>
   </div>
 );
