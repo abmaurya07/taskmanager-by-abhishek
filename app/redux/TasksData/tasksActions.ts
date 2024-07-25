@@ -2,6 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 //--------------#1-----------------------
+
 const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
 export const addTask = createAsyncThunk(
@@ -55,3 +56,4 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (page: numb
     });
     return { taskId, status };
   });
+

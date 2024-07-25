@@ -18,7 +18,6 @@ interface TasksState {
   selectedTasks: string[];
   selectedTask: Task | null;
   status: 'All' | 'To Do' | 'In Progress' | 'Done';
-  sortBy: string,
 }
 
 const initialState: TasksState = {
@@ -29,7 +28,7 @@ const initialState: TasksState = {
   selectedTasks: [],
   selectedTask: null,
   status: 'All',
-  sortBy: 'dueDate',
+  
 };
 
 
@@ -43,9 +42,6 @@ const tasksSlice = createSlice({
     },
     setSelectedTasks(state, action) {
       state.selectedTasks = action.payload;
-    },
-    setSortBy: (state, action) => { // Reducer to update sorting criteria
-      state.sortBy = action.payload;
     },
     toggleSelectTask(state, action) {
       const taskId = action.payload;
@@ -99,6 +95,6 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { setSelectedTask, setSelectedTasks, toggleSelectTask, setPage, setHasMore, setSortBy } = tasksSlice.actions;
+export const { setSelectedTask, setSelectedTasks, toggleSelectTask, setPage, setHasMore } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
