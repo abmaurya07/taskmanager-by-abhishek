@@ -63,9 +63,9 @@ const tasksSlice = createSlice({
       
       if (action.payload === 'asc') {
 
-        state.tasks.sort((a, b) =>  new Date(a.dueDate) - new Date(b.dueDate));
+        state.tasks.sort((a, b) =>  new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
       } else if (action.payload === 'desc') {
-        state.tasks.sort((a, b) =>  new Date(b.dueDate) -  new Date(a.dueDate));
+        state.tasks.sort((a, b) =>  new Date(b.dueDate).getTime() -  new Date(a.dueDate).getTime());
       }
 
 

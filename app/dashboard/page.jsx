@@ -46,7 +46,7 @@ const Dashboard = () => {
   useEffect(() => {
     // When the component mounts, fetch the tasks and set the initial state of the component.
     dispatch(getTaskSummary())
-  }, [tasks])
+  }, [tasks, dispatch])
 
   useEffect(() => {
     // When the page changes, fetch the tasks and set the initial state of the component.
