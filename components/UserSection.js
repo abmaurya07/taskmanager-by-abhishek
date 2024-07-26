@@ -6,7 +6,7 @@ import ToolTip from './ToolTip';
 import { useSelector } from 'react-redux';
 
 
-const UserSection = ({ username }) => {
+const UserSection = () => {
   const router = useRouter();
   const {username} = useSelector(state => state.user)
 

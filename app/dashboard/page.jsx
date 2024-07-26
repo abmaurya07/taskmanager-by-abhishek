@@ -115,7 +115,7 @@ const Dashboard = () => {
 
   return (
     <div className="p-8 ">
-      <UserSection username="User" />
+      <UserSection />
       <div className="flex justify-between items-center mb-10">
         <h1 className="text-2xl font-semibold text-gray-800">Tasks Dashboard</h1>
         <button
