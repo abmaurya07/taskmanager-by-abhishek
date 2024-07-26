@@ -8,6 +8,7 @@ import {
 } from 'react-icons/si';
 
 import LoginForm from '@components/LoginForm'
+import WithRedux from '@/utils/WithRedux';
 
 const TechIcon = ({ icon: Icon, label }) => (
   <div className="flex items-center space-x-4 p-4">
@@ -64,7 +65,9 @@ const Login = () => {
 
       {/* Right Side - Login Form */}
       <div className="lg:w-1/2 flex items-center justify-center p-6 lg:p-12">
+      <WithRedux>
         <LoginForm />
+        </WithRedux>
       </div>
     </div>
   );

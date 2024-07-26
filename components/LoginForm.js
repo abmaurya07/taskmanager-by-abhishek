@@ -19,6 +19,7 @@ const LoginForm = () => {
     e.preventDefault(); 
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, { username, password }, { withCredentials: true });
+      console.log(response.data);
       dispatch(setUsername(response.data.username));
       router.push('/dashboard');
     } catch (err) {
