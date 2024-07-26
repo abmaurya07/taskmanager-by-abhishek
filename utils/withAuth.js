@@ -24,7 +24,8 @@ const withAuth = (WrappedComponent) => {
     }, [router]);
 
     if (loading) {
-      return <div className='flex min-h-screen items-center justify-center'>Loading...</div>; // Optional: Show a loading spinner or message
+      return <div className='flex min-h-screen items-center justify-center bg-gradient-to-r from-purple-200 to-blue-200'>      <div className="zooming-ball"></div>
+</div>; // Optional: Show a loading spinner or message
     }
 
     return <WithRedux><WrappedComponent {...props} /></WithRedux>;

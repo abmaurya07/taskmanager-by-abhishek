@@ -57,3 +57,26 @@ select option:hover {
 .overflow-hidden {
   overflow: hidden;
 }
+
+
+.zooming-ball {
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle at 20% 20%, #3a7bd5, #e0bbf1);
+  border-radius: 50%;
+  animation: zoom 1.5s infinite;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+@keyframes zoom {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  50% {
+    transform: scale(1.5);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+}
