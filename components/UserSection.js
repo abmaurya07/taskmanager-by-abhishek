@@ -18,7 +18,7 @@ const UserSection = ({ username }) => {
   return (
     <div className="flex items-center justify-end pr-5 mb-5">
 
-        <h1 className="text-2xl font-bold text-gray-800 mr-4">{username}</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mr-4">Welcome {username}!</h1>
         <ToolTip tooltip='Logout'>
   
         <AiOutlineLogout size={32} color='#DC3545' onClick={handleLogout} />
