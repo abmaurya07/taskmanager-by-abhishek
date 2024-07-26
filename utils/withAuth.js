@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react';
-import WithRedux from './WithRedux';
+import WithRedux from '@utils/WithRedux';
 import Cookie from 'js-cookie';
 
 const withAuth = (WrappedComponent) => {
@@ -22,7 +22,7 @@ const withAuth = (WrappedComponent) => {
     }, [router]);
 
     if (loading) {
-      return <div>Loading...</div>; // Optional: Show a loading spinner or message
+      return <div className='flex min-h-screen items-center justify-center'>Loading...</div>; // Optional: Show a loading spinner or message
     }
 
     return <WithRedux><WrappedComponent {...props} /></WithRedux>;
