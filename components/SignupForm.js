@@ -107,7 +107,7 @@ const SignupForm = () => {
             </form>
             {/* Display a link to the login page */}
             <p className="mt-4 text-center text-gray-600">
-                Already have an account?{' '}
+                Already have an account?
                 <a href="/login" className="text-purple-600 font-semibold hover:underline">
                     Login
                 </a>
