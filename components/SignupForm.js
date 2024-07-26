@@ -54,7 +54,7 @@ const SignupForm = () => {
 
         try {
             // Send a POST request to the server to create a new account
-  await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/signup`, { username, password });
+  await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/signup`, { username, password });
             // Redirect the user to the login page after successful signup
             router.push('/login');
         } catch (err) {
