@@ -1,10 +1,11 @@
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { FaUser, FaLock } from 'react-icons/fa'; // Importing icons
+import { useRouter } from 'next/navigation';
+import Cookie from 'js-cookie'; // Import js-cookie
+import { FaLock, FaUser } from 'react-icons/fa'; // Importing icons
 
-const Signup = () => {
+const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -13,17 +14,20 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/signup', { username, password });
-      router.push('/login');
+      const { data } = await axios.post('http://localhost:5000/api/login', { username, password });
+      // Example for setting cookie with SameSite attribute
+      Cookie.set('token', data.token, { expires: 1, sameSite: 'lax' });
+
+      router.push('/');
     } catch (err) {
-      setError('Error creating account');
+      setError('Invalid credentials');
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-sm bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Sign Up</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Login</h1>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="relative">
@@ -52,13 +56,13 @@ const Signup = () => {
             type="submit"
             className="w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition duration-300"
           >
-            Sign Up
+            Login
           </button>
         </form>
         <p className="mt-4 text-center text-gray-600">
-          Already have an account?{' '}
-          <a href="/login" className="text-purple-600 font-semibold hover:underline">
-            Login
+          Don't have an account?{' '}
+          <a href="/signup" className="text-purple-600 font-semibold hover:underline">
+            Sign Up
           </a>
         </p>
       </div>
@@ -66,4 +70,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ToolTip = ({ children, tooltip }) => {
+const ToolTip = ({ children, tooltip, placement='top-full' }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
@@ -11,7 +11,7 @@ const ToolTip = ({ children, tooltip }) => {
     >
       {children}
       {showTooltip && (
-        <div className="absolute top-full mb-2 bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap z-10">
+        <div className={  `absolute ${placement}  bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap z-10`}>
           {tooltip}
         </div>
       )}

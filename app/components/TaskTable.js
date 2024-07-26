@@ -22,7 +22,9 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
   };
 
   return (
-    <div className="overflow-x-auto bg-white shadow  mt-4">
+    <>
+   
+      {tasks.length === 0 ? <div className='flex items-center justify-center h-52'> <p className="text-center text-gray-500">No tasks found!</p> </div> :  <div className="overflow-x-auto bg-white shadow  mt-4">
       <table className="min-w-full">
         <thead className="bg-gray-200">
           <tr>
@@ -32,7 +34,7 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
             <th className="px-4 py-2 border  border-slate-400">
               <div className='flex items-center justify-center'>
                 Due Date 
-                <ToolTip tooltip="Sort by Date">
+                <ToolTip tooltip="Sort by Date" >
                   {sortingOrder === 'desc' ? 
                     <FaSortAmountDownAlt onClick={() => handleSort('desc')} className="ml-2 cursor-pointer"/> : 
                     <FaSortAmountUp onClick={() => handleSort('asc')} className="ml-2 cursor-pointer"/>
@@ -88,13 +90,13 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
                 </select>
               </td>
               <td className="px-4 py-2 border flex items-center justify-center">
-                <ToolTip tooltip="View Task">
+                <ToolTip tooltip="View Task" placement='bottom-full'>
                   <FaEye size={20} color='#58D68D' className='m-2 cursor-pointer' onClick={() => handleViewTask(task)} />
                 </ToolTip> 
-                <ToolTip tooltip="Edit Task">
+                <ToolTip tooltip="Edit Task" placement='bottom-full'>
                   <MdModeEdit size={20} color='#5DADE2' className='m-2 cursor-pointer' onClick={() => handleEditTask(task)} />
                 </ToolTip>
-                <ToolTip tooltip="Delete Task">
+                <ToolTip tooltip="Delete Task" placement='bottom-full'>
                   <MdDelete size={20} color='#E74C3C' className='cursor-pointer' onClick={() => handleDelete(task._id)} />
                 </ToolTip>
               </td>
@@ -102,7 +104,9 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
           ))}
         </tbody>
       </table>
-    </div>
+
+    </div>}
+      </>
   );
 };
 

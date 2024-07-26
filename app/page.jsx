@@ -8,6 +8,7 @@ import TaskTable from './components/TaskTable';
 import TaskSummary from './components/TaskSummary';
 import TaskControls from './components/TaskControls';
 import TaskModal from './components/TaskModal';
+import UserSection from './components/UserSection';
 import { FaPlus } from "react-icons/fa";
 
 
@@ -92,7 +93,9 @@ const Home = () => {
 
   return (
     <div className="p-8">
-      <div className="flex justify-between items-center mb-4">
+      <UserSection username="User" />
+
+      <div className="flex justify-between items-center mb-10">
         <h1 className="text-2xl font-semibold text-gray-800">Tasks Dashboard</h1>
         <button
     onClick={() => setShowForm(true)}
@@ -103,12 +106,13 @@ const Home = () => {
   </button>
       </div>
       <TaskSummary taskSummary={taskSummary} />
-      <TaskControls 
+      {tasks.length !== 0 && <TaskControls 
         handleSelectAll={handleSelectAll} 
         handleDeleteSelected={handleDeleteSelected} 
         selectedTasks={selectedTasks}
         allSelected={selectedTasks.length === filteredTasks.length}
-      />
+      />}
+      
       <TaskTable 
         tasks={filteredTasks} 
         selectedTasks={selectedTasks} 
