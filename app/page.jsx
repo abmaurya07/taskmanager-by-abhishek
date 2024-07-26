@@ -92,7 +92,7 @@ const Home = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-8 ">
       <UserSection username="User" />
 
       <div className="flex justify-between items-center mb-10">
