@@ -13,6 +13,8 @@ const withAuth = (WrappedComponent) => {
       // Retrieve the token from cookies
       const token = Cookie.get('token');
 
+      console.log('Retrieved token:', token);
+
       // Check token and redirect if not present
       if (!token) {
         router.push('/login');

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation'; 
 import Cookie from 'js-cookie'; 
 import { FaLock, FaUser } from 'react-icons/fa'; 
+import {jwtDecode} from 'jwt-decode';
 
 const LoginForm = () => { 
   const [username, setUsername] = useState('');
@@ -15,9 +16,7 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     try {
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, { username, password });
-      Cookie.set('token', data.token, { expires: 1, sameSite: 'lax' });
-      Cookie.set('refreshToken', data.refreshToken, { expires: 7, sameSite: 'lax' });
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, { username, password }, { withCredentials: true });
       router.push('/dashboard');
     } catch (err) {
       setError('Invalid credentials');
@@ -28,7 +27,7 @@ const LoginForm = () => {
     const token = Cookie.get('token');
     if (token) {
       // Handle token expiration
-      const tokenExpiry = jwt_decode(token).exp * 1000;
+      const tokenExpiry = jwtDecode(token).exp * 1000;
       const now = Date.now();
       if (tokenExpiry < now) {
         // Token has expired
@@ -39,8 +38,7 @@ const LoginForm = () => {
 
   const refreshToken = async () => {
     try {
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/refresh-token`, { token: Cookie.get('refreshToken') });
-      Cookie.set('token', data.token, { expires: 1, sameSite: 'lax' });
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/refresh-token`, {}, { withCredentials: true });
     } catch (err) {
       // Handle error (e.g., redirect to login)
       router.push('/login');
