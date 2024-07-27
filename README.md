@@ -3,6 +3,9 @@
 ## Introduction
 The Task Management App is a web application built using Next.js, Redux, Redux Toolkit, Tailwind CSS, and React Icons. It provides a comprehensive platform for managing tasks with features like user authentication, task creation, task summary, and responsive design for both desktop and mobile devices.
 
+**Live URL**: [https://taskmanager-by-abhishek.vercel.app/](https://taskmanager-by-abhishek.vercel.app/)
+
+
 ## Table of Contents
 - [Introduction](#introduction)
 - [Features](#features)
@@ -16,22 +19,44 @@ The Task Management App is a web application built using Next.js, Redux, Redux T
 - [License](#license)
 
 ## Features
-- User authentication with JWT tokens stored in cookies.
-- User signup with password encryption using bcrypt.
-- Task creation with title, description, date, and status.
-- Task summary displaying total tasks, in-progress tasks, and completed tasks.
-- Responsive design: tasks displayed in a table on desktop and as cards on mobile.
-- Task filtering by status.
-- Task editing and deletion with confirmation dialogs.
-- Bulk task deletion functionality.
-- Middleware for authentication checking, redirecting to login if the user is not authenticated.
+- **Authentication Middleware**: Ensures users are authenticated before accessing the dashboard, redirecting unauthenticated users to the login page.
+- **User Authentication**: Includes login and signup functionality with validations.
+- **Task Dashboard**: Displays a summary of tasks, including total, in-progress, and completed tasks.
+- **Task Management**: Allows users to create, view, edit, delete, and filter tasks.
+- **Responsive Design**: Optimized for both desktop and mobile devices, displaying tasks in table format on desktop and card format on mobile.
+- **Bulk Delete**: Supports bulk deletion of tasks with a confirmation popup.
+- **Security**: Utilizes bcrypt for password encryption and environment variables for sensitive data.
+
+## Pages 📄
+
+1. **Login**: User authentication page.
+2. **Signup**: User registration page with username and password validations.
+3. **Dashboard**: Main task management interface, accessible only to authenticated users.
+
+
+## Signup Form Validation 📝
+
+- **Username**: Must be at least 6 characters long. If the username already exists, a 409 status code is returned, prompting the user to choose another username.
+- **Password**: Must meet the following criteria:
+  - At least 8 characters long
+  - Contains at least one uppercase letter
+  - Contains at least one lowercase letter
+  - Contains at least one digit
+  - Contains at least one special character
+
+## How It Works ⚙️
+
+1. **Authentication**: The app includes middleware to check user authentication status. Unauthenticated users are redirected to the login page.
+2. **Task Management**: Users can create, view, edit, delete, and filter tasks. Tasks can be displayed in a table or card format depending on the device.
+3. **Bulk Operations**: Users can perform bulk deletions with a confirmation popup to prevent accidental deletions.
+4. **Responsive Design**: The application adapts to different screen sizes, ensuring a seamless experience on both desktop and mobile devices.
 
 ## Installation
 To install and run the Task Management App locally, follow these steps:
 
 1. Clone the repository:
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/abmaurya07/taskmanager-by-abhishek
     ```
 2. Navigate to the project directory:
     ```bash
@@ -61,12 +86,14 @@ To install and run the Task Management App locally, follow these steps:
 - Navigate to the `/login` page.
 - Enter your username and password to log in.
 
-### Dashboard
+### Task Dashboard Features
 - Upon successful login, you will be redirected to the `/dashboard`.
-- The dashboard displays a summary of your tasks, including total tasks, in-progress tasks, and completed tasks.
-- You can create new tasks, view task details, edit tasks, and delete tasks.
-- Tasks can be filtered by status.
-- On desktop, tasks are displayed in a table format, while on mobile, they are displayed as cards.
+- Task Summary: Displays a summary of total tasks,todo tasks, in-progress tasks, and completed tasks.
+- Task Creation: Users can add new tasks with a title, description, date, and status.
+- Task Viewing and Editing: Users can view and edit task details.
+- Task Deletion: Single and bulk deletion of tasks with confirmation popups.
+- Task Filtering: Filter tasks based on their status.
+- Task Layout: On desktop, tasks are displayed in a table format, while on mobile, they are displayed as cards.
 
 ## Configuration
 Sensitive data and configuration values are stored in environment variables. For the Next.js application, create a `.env.local` file in the root directory and add your configuration values.
@@ -75,12 +102,18 @@ Example `.env.local` file:
 ```plaintext
 NEXT_PUBLIC_API_URL=http://localhost:5000
 ```
-## Dependencies
+## Technologies Used
 - [Next.js](https://nextjs.org/)
 - [Redux](https://redux.js.org/)
 - [Redux Toolkit](https://redux-toolkit.js.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [React Icons](https://react-icons.github.io/react-icons/)
+- [Axios]
+
+## Security
+- Password Encryption: Passwords are encrypted using bcrypt on the backend.
+- Environment Variables: Sensitive data is stored in environment variables to keep it secure.
+
 
 ## API Endpoints
 The backend API endpoints used in this project include:
