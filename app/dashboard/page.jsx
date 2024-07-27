@@ -121,6 +121,7 @@ const Dashboard = () => {
       </div>
       <TaskSummary taskSummary={taskSummary} />
       <TaskControls
+        tasks={tasks}
         handleSelectAll={handleSelectAll}
         handleDeleteSelected={handleDeleteSelected}
         selectedTasks={selectedTasks}
