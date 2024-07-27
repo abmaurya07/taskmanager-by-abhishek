@@ -5,7 +5,7 @@ import { FaPlus } from 'react-icons/fa';
 
 const TaskControls = ({ handleSelectAll, handleDeleteSelected,selectedTasks, allSelected }) => (
   <div className="flex justify-between items-center my-4">
-    <div>
+    <div className="flex items-start">
     <div className='mr-2'>
       <input 
         type="checkbox" 
