@@ -1,9 +1,9 @@
 import { useRouter } from 'next/navigation';
-import Cookie from 'js-cookie';
 import { AiOutlineLogout } from "react-icons/ai";
 import ToolTip from './ToolTip';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { cookies } from 'next/headers';
 
 const UserSection = () => {
   const router = useRouter();
@@ -12,7 +12,9 @@ const UserSection = () => {
   const { username } = useSelector(state => state.user);
 
   const handleLogout = () => {
-    Cookie.remove('token'); // Remove the token from cookies
+
+    cookies().delete('token');
+    cookies().delete('refreshToken');
     router.push('/login'); // Redirect to login page
   };
 
