@@ -11,6 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { username, password } = req.body;
 
     console.log('username', username, 'password', password)
+    console.log('process.env.NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL)
 
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/logins`, { username, password });
