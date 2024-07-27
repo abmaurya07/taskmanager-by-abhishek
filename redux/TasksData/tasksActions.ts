@@ -53,7 +53,7 @@ export const updateTaskStatus = createAsyncThunk('tasks/updateTaskStatus', async
     return { taskId, status };
 });
 
-export const getTaskSummary = createAsyncThunk('tasks/getTaskSummary', async () => {
+export const getTaskSummary = createAsyncThunk('tasks/taskSummary', async () => {
     const response = await axios.get('/api/tasks/summary', {
       withCredentials: true
     });
