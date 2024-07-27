@@ -9,6 +9,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const { username, password } = req.body;
 
+    console.log('username', username, 'password', password)
+
     try {
       const response = await axiosInstance.post('/api/login', { username, password });
 
