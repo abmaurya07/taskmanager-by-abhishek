@@ -1,43 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaSortAmountDownAlt, FaSortAmountUp, FaFilter, FaEye } from 'react-icons/fa'; 
+import { FaSortAmountDownAlt, FaSortAmountUp } from 'react-icons/fa'; 
 import { MdModeEdit, MdDelete } from "react-icons/md";
-
 import { useDispatch, useSelector } from 'react-redux';
 import { sortByDate, setFilterStatus } from '../redux/TasksData/tasksSlice';
 import ToolTip from './ToolTip';
 
 const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange, handleEditTask, handleViewTask, lastTaskRef, handleDelete }) => {
   const [sortingOrder, setSortingOrder] = useState('asc');
-  const [showFilter, setShowFilter] = useState(false);
   const dispatch = useDispatch();
-  const filterRef = useRef(null);
-
   const { taskSummary } = useSelector((state) => state.tasks);
 
   const { 'All': allTasks, 'Done': doneTasks, 'In Progress': inProgressTasks, 'To Do': toDoTasks } = taskSummary;
-
-  // Handle outside click to close the filter
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (filterRef.current && !filterRef.current.contains(event.target)) {
-        setShowFilter(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   const handleSort = (order) => {
     dispatch(sortByDate(order));
     setSortingOrder(order === 'asc' ? 'desc' : 'asc');
   };
 
-  const handleFilterChange = (status) => {
+  const handleFilterChange = (event) => {
+    const status = event.target.value;
     dispatch(setFilterStatus(status));
-    setShowFilter(false);
   };
 
   return (
@@ -66,45 +48,20 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
                   </div>
                 </th>
                 <th className="px-4 py-2 border border-slate-400">
-                  <div className='relative flex items-center justify-center'>
-                    <div className='flex items-center'>
-                      Status
-                      <ToolTip tooltip="Filter by Status">
-                        <FaFilter onClick={() => setShowFilter(!showFilter)} className="ml-2 cursor-pointer" />
-                      </ToolTip>
-                    </div>
-                    {showFilter && (
-                      <div ref={filterRef} className="absolute top-8 bg-white shadow-lg p-2 mt-2 z-10">
-                        <button 
-                          onClick={() => handleFilterChange('All')} 
-                          className={`block px-4 sm:text-base py-2 ${allTasks === 0 ? 'cursor-not-allowed text-gray-400' : ''}`} 
-                          disabled={allTasks === 0}
-                        >
-                          All ({allTasks})
-                        </button>
-                        <button 
-                          onClick={() => handleFilterChange('In Progress')} 
-                          className={`block px-4 sm:text-base py-2 ${inProgressTasks === 0 ? 'cursor-not-allowed text-gray-400' : ''}`} 
-                          disabled={inProgressTasks === 0}
-                        >
-                          In Progress ({inProgressTasks})
-                        </button>
-                        <button 
-                          onClick={() => handleFilterChange('To Do')} 
-                          className={`block px-4 sm:text-base py-2 ${toDoTasks === 0 ? 'cursor-not-allowed text-gray-400' : ''}`} 
-                          disabled={toDoTasks === 0}
-                        >
-                          To Do ({toDoTasks})
-                        </button>
-                        <button 
-                          onClick={() => handleFilterChange('Done')} 
-                          className={`block px-4 sm:text-base py-2 ${doneTasks === 0 ? 'cursor-not-allowed text-gray-400' : ''}`} 
-                          disabled={doneTasks === 0}
-                        >
-                          Done ({doneTasks})
-                        </button>
-                      </div>
-                    )}
+                  <div className='flex items-center justify-center'>
+                    Status
+                    <ToolTip tooltip="Filter by Status">
+                      <select 
+                        onChange={handleFilterChange} 
+                        className="ml-2 border rounded p-1 cursor-pointer"
+                        defaultValue="All"
+                      >
+                        <option value="All">All ({allTasks})</option>
+                        <option value="In Progress">In Progress ({inProgressTasks})</option>
+                        <option value="To Do">To Do ({toDoTasks})</option>
+                        <option value="Done">Done ({doneTasks})</option>
+                      </select>
+                    </ToolTip>
                   </div>
                 </th>
                 <th className="px-4 py-2 border border-slate-400">Actions</th>
