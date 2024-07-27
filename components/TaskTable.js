@@ -1,124 +1,139 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaEye, FaSortAmountDownAlt, FaSortAmountUp, FaFilter } from 'react-icons/fa';
-import { MdModeEdit, MdDelete } from 'react-icons/md';
-import { sortByDate, setFilterStatus } from '../redux/TasksData/tasksSlice';
-import ToolTip from './ToolTip';
+import { setSelectedTasks, setPage } from '@redux/TasksData/tasksSlice';
+import { deleteSelectedTasks, deleteTask, fetchTasks, getTaskSummary, updateTaskStatus } from '@redux/TasksData/tasksActions';
+import ConfirmationDialog from '@components/ConfirmationDialog';  // Import the ConfirmationDialog
+import TaskTable from '@components/TaskTable';
+import TaskSummary from '@components/TaskSummary';
+import TaskControls from '@components/TaskControls';
+import TaskModal from '@components/TaskModal';
+import UserSection from '@components/UserSection';
+import WithRedux from '@/utils/WithRedux';
 
-const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange, handleEditTask, handleViewTask, lastTaskRef, handleDelete }) => {
-  const [sortingOrder, setSortingOrder] = useState('asc');
+const Dashboard = () => {
+  const [showForm, setShowForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [showViewForm, setShowViewForm] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [showDialog, setShowDialog] = useState(false);  // Add state for dialog
+  const [taskToDelete, setTaskToDelete] = useState(null);  // State to hold the task being deleted
+
   const dispatch = useDispatch();
-  const { taskSummary } = useSelector((state) => state.tasks);
+  const { tasks, status, loading, hasMore, page, selectedTasks, taskSummary } = useSelector((state) => state.tasks);
+  const observer = useRef();
 
-  const { 'All': allTasks, 'Done': doneTasks, 'In Progress': inProgressTasks, 'To Do': toDoTasks } = taskSummary;
+  useEffect(() => {
+    dispatch(getTaskSummary());
+  }, [dispatch]);
 
-  const handleSort = (order) => {
-    dispatch(sortByDate(order));
-    setSortingOrder(order === 'asc' ? 'desc' : 'asc');
+  useEffect(() => {
+    dispatch(fetchTasks(page));
+  }, [page, dispatch]);
+
+  const handleSelectTask = (taskId) => {
+    dispatch(setSelectedTasks(selectedTasks.includes(taskId)
+      ? selectedTasks.filter(id => id !== taskId)
+      : [...selectedTasks, taskId]));
   };
 
-  const handleFilterChange = (event) => {
-    const status = event.target.value;
-    dispatch(setFilterStatus(status));
+  const handleSelectAll = (e) => {
+    if (e.target.checked) {
+      dispatch(setSelectedTasks(tasks.map(task => task._id)));
+    } else {
+      dispatch(setSelectedTasks([]));
+    }
+  };
+
+  const handleDelete = (taskId) => {
+    setTaskToDelete(taskId);  // Set the task to be deleted
+    setShowDialog(true);  // Show the confirmation dialog
+  };
+
+  const handleDeleteSelected = () => {
+    setShowDialog(true);  // Show the confirmation dialog
+  };
+
+  const confirmDelete = () => {
+    if (taskToDelete) {
+      dispatch(deleteTask(taskToDelete));
+      setTaskToDelete(null);
+    } else {
+      dispatch(deleteSelectedTasks(selectedTasks));
+    }
+    setShowDialog(false);  // Hide the dialog after confirming
+  };
+
+  const cancelDelete = () => {
+    setTaskToDelete(null);
+    setShowDialog(false);  // Hide the dialog after canceling
+  };
+
+  const handleStatusChange = (status, taskId) => {
+    dispatch(updateTaskStatus({ taskId, status }));
+  };
+
+  const lastTaskRef = useCallback(node => {
+    if (loading) return;
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && hasMore) {
+        dispatch(setPage(page + 1));
+      }
+    });
+    if (node) observer.current.observe(node);
+  }, [loading, hasMore, page, dispatch]);
+
+  const filteredTasks = tasks.filter(task => status === 'All' || task.status === status);
+
+  const handleEditTask = (task) => {
+    setSelectedTask(task);
+    setShowEditForm(true);
+  };
+
+  const handleViewTask = (task) => {
+    setSelectedTask(task);
+    setShowViewForm(true);
   };
 
   return (
-    <>
-      {tasks.length === 0 ? (
-        <div className='flex items-center justify-center h-52'>
-          <p className="text-center text-gray-500">No tasks found!</p>
-        </div>
-      ) : (
-        <div className="overflow-x-auto bg-white shadow mt-4">
-          <table className="min-w-full">
-            <thead className="bg-gray-200">
-              <tr>
-                <th className="py-2 border border-l-slate-400 border-b-slate-400 border-t-slate-400"></th>
-                <th className="px-4 py-2 border border-slate-400">Task Name</th>
-                <th className="px-4 py-2 border border-slate-400">Description</th>
-                <th className="px-4 py-2 border border-slate-400">
-                  <div className='flex items-center justify-center'>
-                    Due Date 
-                    <ToolTip tooltip="Sort by Date">
-                      {sortingOrder === 'desc' ? 
-                        <FaSortAmountDownAlt onClick={() => handleSort('desc')} className="ml-2 cursor-pointer"/> : 
-                        <FaSortAmountUp onClick={() => handleSort('asc')} className="ml-2 cursor-pointer"/>
-                      }
-                    </ToolTip>
-                  </div>
-                </th>
-                <th className="px-4 py-2 border border-slate-400">
-                  <div className='flex items-center justify-center'>
-                    Status
-                    <ToolTip tooltip="Filter by Status">
-                      <div className="relative flex items-center ml-2">
-                        <FaFilter className="absolute left-2"/>
-                        <select 
-                          onChange={handleFilterChange} 
-                          className="pl-8 border rounded p-1 cursor-pointer outline-none bg-transparent"
-                          defaultValue="All"
-                        >
-                          <option value="All">All ({allTasks})</option>
-                          <option disabled={inProgressTasks === 0} value="In Progress">In Progress ({inProgressTasks})</option>
-                          <option  disabled={toDoTasks === 0}value="To Do">To Do ({toDoTasks})</option>
-                          <option  disabled={doneTasks === 0}value="Done">Done ({doneTasks})</option>
-                        </select>
-                      </div>
-                    </ToolTip>
-                  </div>
-                </th>
-                <th className="px-4 py-2 border border-slate-400">Actions</th>
-              </tr>
-            </thead>
-            <tbody className='text-center'>
-              {tasks.map((task, index) => (
-                <tr key={task._id} ref={index === tasks.length - 1 ? lastTaskRef : null} className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}>
-                  <td className="py-2 border">
-                    <input
-                      type="checkbox" 
-                      onChange={() => handleSelectTask(task._id)} 
-                      checked={selectedTasks.includes(task._id)} 
-                    />
-                  </td>
-                  <td className="px-4 py-2 border cell-max-width">{task.title.trim().length > 20 ? task.title.slice(0, 20) + '...' : task.title}</td>
-                  <td className="px-4 py-2 border text-start cell-max-width">{task.description.trim().length > 50 ? task.description.slice(0, 50) + '...' : task.description}</td>
-                  <td className="px-4 py-2 border">{task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'N/A'}</td>
-                  <td className="px-4 py-2 border">
-                    <select 
-                      value={task.status} 
-                      onChange={(e) => handleStatusChange(e.target.value, task._id)} 
-                      className={`p-1 pl-2 pr-2 border text-center font-light rounded-3xl outline-none cursor-pointer
-                        ${task.status === "To Do" ? "bg-red-100 text-red" : ""} 
-                        ${task.status === "In Progress" ? "bg-purple-100 text-gray" : ""} 
-                        ${task.status === "Done" ? "bg-green-100 text-green" : ""}`
-                      }
-                    >
-                      <option value="To Do" className="bg-red-100 text-red">To Do</option>
-                      <option value="In Progress" className="bg-purple-100 text-blue">In Progress</option>
-                      <option value="Done" className="bg-green-100 text-green">Done</option>
-                    </select>
-                  </td>
-                  <td className="px-4 py-2 ">
-                    <div className='flex'>
-                    <ToolTip tooltip="View Task" placement='bottom-full'>
-                      <FaEye size={20} color='#58D68D' className='m-2 cursor-pointer' onClick={() => handleViewTask(task)} />
-                    </ToolTip> 
-                    <ToolTip tooltip="Edit Task" placement='bottom-full'>
-                      <MdModeEdit size={20} color='#5DADE2' className='m-2 cursor-pointer' onClick={() => handleEditTask(task)} />
-                    </ToolTip>
-                    <ToolTip tooltip="Delete Task" placement='bottom-full'>
-                      <MdDelete size={20} color='#E74C3C' className='cursor-pointer' onClick={() => handleDelete(task._id)} />
-                    </ToolTip>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+    <div className="p-8" style={{paddingTop: '100px'}}>
+      <UserSection />
+      <div className="flex justify-between items-center mb-10">
+        <h1 className="text-2xl font-semibold text-gray-800">Tasks Summary</h1>
+      </div>
+      <TaskSummary taskSummary={taskSummary} />
+      <TaskControls
+        handleDeleteSelected={handleDeleteSelected}
+        selectedTasks={selectedTasks}
+        setShowForm={setShowForm}
+      />
+      <TaskTable
+        tasks={filteredTasks}
+        handleSelectAll={handleSelectAll}
+        allSelected={selectedTasks.length === filteredTasks.length}
+        selectedTasks={selectedTasks}
+        handleSelectTask={handleSelectTask}
+        handleStatusChange={handleStatusChange}
+        handleEditTask={handleEditTask}
+        handleViewTask={handleViewTask}
+        lastTaskRef={lastTaskRef}
+        handleDelete={handleDelete}
+      />
+      <TaskModal showForm={showForm} setShowForm={setShowForm} />
+      {showEditForm && selectedTask && (
+        <TaskModal showForm={showEditForm} setShowForm={setShowEditForm} selectedTask={selectedTask} />
       )}
-    </>
+      {showViewForm && selectedTask && (
+        <TaskModal showForm={showViewForm} viewTask={true} setShowForm={setShowViewForm} selectedTask={selectedTask} />
+      )}
+      {showDialog && (
+        <ConfirmationDialog
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
+    </div>
   );
 };
 
-export default TaskTable;
+export default WithRedux(Dashboard);

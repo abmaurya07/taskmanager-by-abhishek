@@ -11,8 +11,7 @@ const TaskForm = ({ task = null, setShowForm }) => {
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
-  const {page} = useSelector((state) => state.tasks);
-
+  const { page } = useSelector((state) => state.tasks);
 
   useEffect(() => {
     if (task) {
@@ -46,6 +45,8 @@ const TaskForm = ({ task = null, setShowForm }) => {
     setIsEditing(false);
     setShowForm(false);
   };
+
+  const today = new Date().toISOString().split('T')[0];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 p-6 bg-white rounded-lg shadow-lg max-w-3xl mx-auto border border-gray-200">
@@ -82,6 +83,7 @@ const TaskForm = ({ task = null, setShowForm }) => {
             type="date"
             id="dueDate"
             value={dueDate}
+            min={today}
             onChange={(e) => setDueDate(e.target.value)}
             className="block p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-300 ease-in-out"
           />
@@ -101,10 +103,11 @@ const TaskForm = ({ task = null, setShowForm }) => {
         </div>
       </div>
 
-     <CustomButton type='submit' loading={loading}>
+      <CustomButton type='submit' loading={loading}>
         {isEditing ? 'Update Task' : 'Add Task'}
-        </CustomButton>
-    </form>);
+      </CustomButton>
+    </form>
+  );
 };
 
 export default TaskForm;

@@ -121,15 +121,14 @@ const Dashboard = () => {
       </div>
       <TaskSummary taskSummary={taskSummary} />
       <TaskControls
-        tasks={tasks}
-        handleSelectAll={handleSelectAll}
         handleDeleteSelected={handleDeleteSelected}
         selectedTasks={selectedTasks}
-        allSelected={selectedTasks.length === filteredTasks.length}
         setShowForm={setShowForm}
       />
       <TaskTable
         tasks={filteredTasks}
+        handleSelectAll={handleSelectAll}
+        allSelected={selectedTasks.length === filteredTasks.length}
         selectedTasks={selectedTasks}
         handleSelectTask={handleSelectTask}
         handleStatusChange={handleStatusChange}
