@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaSortAmountDownAlt, FaSortAmountUp } from 'react-icons/fa'; 
+import { FaEye, FaSortAmountDownAlt, FaSortAmountUp } from 'react-icons/fa'; 
 import { MdModeEdit, MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from 'react-redux';
 import { sortByDate, setFilterStatus } from '../redux/TasksData/tasksSlice';
