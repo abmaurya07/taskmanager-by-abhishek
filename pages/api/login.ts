@@ -8,6 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, { username, password });
+      console.log('Token:', response.data.token); // Debugging line
 
       res.setHeader('Set-Cookie', cookie.serialize('token', response.data.token, {
         httpOnly: true,
