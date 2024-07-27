@@ -32,7 +32,7 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (page: numb
 });
 
 export const deleteTask = createAsyncThunk('tasks/deleteTask', async (taskId: string) => {
-    await axios.delete(`/api/tasks?taskId=${taskId}`,{
+    await axios.delete(`/api/tasks/deleteTask?taskId=${taskId}`,{
       withCredentials: true
     });
     return taskId;
