@@ -3,16 +3,19 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from '../redux/store'
 
-const WithRedux = ({children}) => {
+const WithRedux = (WrappedComponent) => {
 
 
  
 
-    return   <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        {children}
-        </PersistGate>
-        </Provider>
+    return () => {
+
+      return (<Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+            <WrappedComponent />
+          </PersistGate>
+          </Provider>)
+    } 
   
 };
 

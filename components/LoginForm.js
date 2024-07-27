@@ -7,6 +7,7 @@ import { FaLock, FaUser } from 'react-icons/fa';
 import {jwtDecode} from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '@/redux/UserData/userSlice';
+import WithRedux from '@/utils/WithRedux';
 
 const LoginForm = () => { 
   const [username, setUsernameState] = useState('');
@@ -91,4 +92,4 @@ const LoginForm = () => {
   );
 }
 
-export default LoginForm;
+export default WithRedux(LoginForm);

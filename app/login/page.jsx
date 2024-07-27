@@ -65,9 +65,7 @@ const Login = () => {
 
       {/* Right Side - Login Form */}
       <div className="lg:w-1/2 flex items-center justify-center p-6 lg:p-12">
-      <WithRedux>
         <LoginForm />
-        </WithRedux>
       </div>
     </div>
   );
