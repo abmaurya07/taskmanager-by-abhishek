@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedTasks, setPage } from '@redux/TasksData/tasksSlice';
