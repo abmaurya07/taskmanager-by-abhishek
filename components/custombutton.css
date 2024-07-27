@@ -16,14 +16,7 @@
       transform: rotate(360deg);
     }
   }
-  
-  /* Button styling */
-  button {
-    width: 100%;
-    height: 100%;
-    transition: all 0.3s ease-in-out;
-    overflow: hidden;
-  }
+
   
   /* Hide the button during loading */
   button:disabled {
