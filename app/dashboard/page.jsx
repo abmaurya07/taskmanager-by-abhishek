@@ -155,4 +155,4 @@ const Dashboard = () => {
   );
 };
 
-export default (<WithRedux><Dashboard /></WithRedux>);
+export default WithRedux(Dashboard);
