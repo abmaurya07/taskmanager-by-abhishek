@@ -11,7 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       res.setHeader('Set-Cookie', cookie.serialize('token', response.data.token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
         sameSite: 'lax',
         maxAge: 60 * 60 * 1, // 1 hour
         path: '/'
@@ -19,7 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       res.setHeader('Set-Cookie', cookie.serialize('refreshToken', response.data.refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
         sameSite: 'lax',
         maxAge: 60 * 60 * 24 * 7, // 1 week
         path: '/'
