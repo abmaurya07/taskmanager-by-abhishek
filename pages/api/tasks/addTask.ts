@@ -6,6 +6,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     try {
       const { task } = req.body;
+      console.log(' task:', task);
+      console.log('Body task:', req.body);
 
       console.log('Adding task:', req.cookies);
       const { token, refreshToken } = req.cookies;
