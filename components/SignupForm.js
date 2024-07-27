@@ -1,56 +1,49 @@
-// component to render the signup form.
-// It is a standalone component that can be used in any part of the application.
-// It uses React hooks to manage state.
-
-'use client'
-import { useRouter } from 'next/navigation'; 
-import React, { useState } from 'react'; 
-import axios from 'axios'; 
-
-import { FaUser, FaLock } from 'react-icons/fa'; 
-
-import CustomButton from './CustomButton'
+'use client';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { FaUser, FaLock, FaTimes, FaCheck } from 'react-icons/fa';
+import CustomButton from './CustomButton';
 
 const SignupForm = () => {
-    // state variables using the useState hook
-    const [username, setUsername] = useState(''); // Store the username input value
-    const [password, setPassword] = useState(''); // Store the password input value
-    const [error, setError] = useState(''); // Store any error messages
-    const [usernameError, setUsernameError] = useState(''); // Store any username error messages
-    const [passwordError, setPasswordError] = useState(''); // Store any password error messages
-    const [loading, setLoading] = useState(false); // Store button loading state
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [usernameError, setUsernameError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const router = useRouter();
 
-    //  username validation function
     const validateUsername = (username) => {
-        const usernameRegex = /^[a-zA-Z]{6}/; // regular expression for validating the username
-        if (!usernameRegex.test(username)) { // Check if the username does not match the regex
-            return 'Username must be at least 6 characters long'; // Return the error message
+        const usernameRegex = /^[a-zA-Z]{6}/;
+        if (!usernameRegex.test(username)) {
+            return 'Username must be at least 6 characters long';
         }
-        return ''; // Return an empty string if the username is valid
+        return '';
     };
 
-    //  password validation function
     const validatePassword = (password) => {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // regular expression for validating the password
-        if (!passwordRegex.test(password)) { // Check if the password does not match the regex
-            return 'Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character'; // Return the error message
-        }
-        return ''; // Return an empty string if the password is valid
+        const conditions = {
+            length: password.length >= 8,
+            uppercase: /[A-Z]/.test(password),
+            lowercase: /[a-z]/.test(password),
+            digit: /\d/.test(password),
+            special: /[@$!%*?&]/.test(password),
+        };
+        return conditions;
     };
 
-    //  form submission handler function
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent the default form submission behavior
+        e.preventDefault();
+        setLoading(true);
 
-        setLoading(true); // Set the loading state to true
-
-        // Validate the username and password
         const usernameValidationError = validateUsername(username);
-        const passwordValidationError = validatePassword(password);
+        const passwordConditions = validatePassword(password);
+        const passwordValidationError = Object.values(passwordConditions).includes(false)
+            ? 'Password must meet all the conditions'
+            : '';
 
-        // If there are validation errors, set the error state variables and return
         if (usernameValidationError || passwordValidationError) {
             setUsernameError(usernameValidationError);
             setPasswordError(passwordValidationError);
@@ -59,29 +52,22 @@ const SignupForm = () => {
         }
 
         try {
-            // Send a POST request to the server to create a new account
-  await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/signup`, { username, password });
-            // Redirect the user to the login page after successful signup
+            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/signup`, { username, password });
             setLoading(false);
-
             router.push('/login');
         } catch (err) {
-            // If there is an error creating the account, set the error state variable
             setError('Error creating account');
             setLoading(false);
-
         }
     };
 
-    // render the signup form
+    const passwordConditions = validatePassword(password);
+
     return (
         <div className="w-full max-w-md rounded-xl shadow-lg p-8 bg-white/30 backdrop-blur-md border border-gray-300">
             <h1 className="text-2xl lg:text-3xl font-bold mb-6 text-center text-gray-800">Sign Up</h1>
-            {/* Display any error messages */}
             {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-            {/*  the signup form */}
             <form onSubmit={handleSubmit} className="space-y-6">
-                {/* The username input field */}
                 <div className="relative">
                     <input
                         type="text"
@@ -91,10 +77,8 @@ const SignupForm = () => {
                         className={`w-full p-3 border ${usernameError ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500`}
                     />
                     <FaUser className="absolute top-3 right-3 text-gray-400" />
-                    {/* Display any username error messages */}
                     {usernameError && <p className="text-red-500 text-sm mt-1">{usernameError}</p>}
                 </div>
-                {/* The password input field */}
                 <div className="relative">
                     <input
                         type="password"
@@ -104,15 +88,29 @@ const SignupForm = () => {
                         className={`w-full p-3 border ${passwordError ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500`}
                     />
                     <FaLock className="absolute top-3 right-3 text-gray-400" />
-                    {/* Display any password error messages */}
                     {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
                 </div>
-                {/* The submit button */}
-             <CustomButton type='submit' loading={loading}>
+                <ul className="space-y-1 text-sm mt-2">
+                    <li className={`flex items-center ${passwordConditions.length ? 'text-green-500' : 'text-red-500'}`}>
+                        {passwordConditions.length ? <FaCheck /> : <FaTimes />} At least 8 characters long
+                    </li>
+                    <li className={`flex items-center ${passwordConditions.uppercase ? 'text-green-500' : 'text-red-500'}`}>
+                        {passwordConditions.uppercase ? <FaCheck /> : <FaTimes />} At least one uppercase letter
+                    </li>
+                    <li className={`flex items-center ${passwordConditions.lowercase ? 'text-green-500' : 'text-red-500'}`}>
+                        {passwordConditions.lowercase ? <FaCheck /> : <FaTimes />} At least one lowercase letter
+                    </li>
+                    <li className={`flex items-center ${passwordConditions.digit ? 'text-green-500' : 'text-red-500'}`}>
+                        {passwordConditions.digit ? <FaCheck /> : <FaTimes />} At least one digit
+                    </li>
+                    <li className={`flex items-center ${passwordConditions.special ? 'text-green-500' : 'text-red-500'}`}>
+                        {passwordConditions.special ? <FaCheck /> : <FaTimes />} At least one special character
+                    </li>
+                </ul>
+                <CustomButton type='submit' loading={loading}>
                     Sign Up
-                    </CustomButton>
+                </CustomButton>
             </form>
-            {/* Display a link to the login page */}
             <p className="mt-4 text-center text-gray-600">
                 Already have an account?
                 <a href="/login" className="text-purple-600 font-semibold hover:underline">
@@ -123,4 +121,4 @@ const SignupForm = () => {
     );
 };
 
-export default SignupForm
+export default SignupForm;
