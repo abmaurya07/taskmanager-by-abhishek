@@ -1,8 +1,27 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextApiRequest, NextApiResponse } from 'next';
+import cookie from 'cookie';
 
-export async function POST(request: NextRequest) {
-  const response = NextResponse.json({ message: 'Logged out' });
-  response.cookies.set('token', '', { maxAge: -1 });
-  response.cookies.set('refreshToken', '', { maxAge: -1 });
-  return response;
-}
+export default async (req: NextApiRequest, res: NextApiResponse) =>{
+
+    const cookies = [
+        cookie.serialize('token', '', {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          maxAge: -1, // 1 hour
+          path: '/'
+        }),
+        cookie.serialize('refreshToken', '', {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          maxAge: -1, // 1 week
+          path: '/'
+        })
+      ];
+
+      res.setHeader('Set-Cookie', cookies);
+
+      res.status(200).json({ message: 'logged out' });
+
+    }

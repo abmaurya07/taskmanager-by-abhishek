@@ -3,6 +3,7 @@ import { AiOutlineLogout } from "react-icons/ai";
 import ToolTip from './ToolTip';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const UserSection = () => {
   const router = useRouter();
@@ -11,12 +12,7 @@ const UserSection = () => {
   const { username } = useSelector(state => state.user);
 
   const handleLogout = async () => {
-    const res = await fetch('/api/logout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const res = await axios.post('/api/logout');
   
     if (res.ok) {
       router.push('/login'); // Redirect to login page
