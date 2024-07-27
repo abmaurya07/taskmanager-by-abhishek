@@ -25,7 +25,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getTaskSummary());
-  }, [dispatch]);
+  }, [tasks, dispatch]);
 
   useEffect(() => {
     dispatch(fetchTasks(page));
