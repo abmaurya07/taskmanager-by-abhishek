@@ -5,7 +5,7 @@ import axios from 'axios';
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     try {
-      const { task } = req.body;
+      const  task  = req.body;
       console.log(' task:', task);
       console.log('Body task:', req.body);
 

@@ -14,7 +14,7 @@ const isAuthenticated = (req: NextRequest) => {
 export function middleware(req: NextRequest) {
   // Define the paths you want to protect
   const protectedPaths = ['/dashboard']; // Update with your protected paths
-
+  console.log('isAuthenticated:', isAuthenticated(req));
   // Check if the request URL is one of the protected paths
   if (protectedPaths.includes(req.nextUrl.pathname) && !isAuthenticated(req)) {
     // Redirect to the login page if not authenticated
