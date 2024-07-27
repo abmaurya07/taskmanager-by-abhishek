@@ -14,8 +14,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.log('process.env.NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL)
 
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/logins`, { username, password });
-
+        console.log('run')
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, { username, password });
+console.log('run after')
       // Set a cookie with the token received from the backend
       cookies().set('token', response.data.token, {
         httpOnly: true,
@@ -23,6 +24,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         sameSite: 'lax',
         maxAge: 60 * 60 * 1, // 1 hour
       });
+
+      console.log('run after cookie is set')
 
       // Set a cookie with the refresh token recieved from the backend
       cookies().set('refreshToken', response.data.refreshToken, {
