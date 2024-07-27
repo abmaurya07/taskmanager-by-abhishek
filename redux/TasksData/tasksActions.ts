@@ -17,7 +17,9 @@ export const addTask = createAsyncThunk(
 export const updateTask = createAsyncThunk(
   'tasks/editTask',
   async ({ id, task }: { id: string, task: any }) => {
-    const response = await axiosInstance.put(`/api/tasks/${id}`, task);
+    const response = await axios.put(`/api/tasks/updateTask`, {id, task}, {
+      withCredentials: true
+    } );
     return response.data;
   }
 );
