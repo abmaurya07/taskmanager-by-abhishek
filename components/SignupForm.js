@@ -9,6 +9,8 @@ import axios from 'axios';
 
 import { FaUser, FaLock } from 'react-icons/fa'; 
 
+import CustomButton from './CustomButton'
+
 const SignupForm = () => {
     // state variables using the useState hook
     const [username, setUsername] = useState(''); // Store the username input value
