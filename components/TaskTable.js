@@ -52,7 +52,7 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
                     Status
                     <ToolTip tooltip="Filter by Status">
                       <div className="relative flex items-center ml-2">
-                        <FaFilter className="absolute left-2 text-gray-500"/>
+                        <FaFilter className="absolute left-2"/>
                         <select 
                           onChange={handleFilterChange} 
                           className="pl-8 border rounded p-1 cursor-pointer outline-none bg-transparent"
