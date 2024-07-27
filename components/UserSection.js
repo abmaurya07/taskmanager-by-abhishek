@@ -34,8 +34,8 @@ const UserSection = () => {
   }, []);
 
   return (
-    
-    <div className={`flex items-center justify-between pr-5 pl-5 mb-5 fixed top-0 left-0 z-50 bg-white transition-shadow ${isScrolled ? 'shadow-lg' : ''}`}>
+    <div className={`fixed top-0 left-0 z-50 w-full bg-white transition-shadow ${isScrolled ? 'shadow-lg' : ''}`}>
+    <div className={`flex items-center justify-between pr-5 pl-5 mb-5`}>
 
 <h1 className="text-3xl lg:text-4xl font-extrabold mb-6 text-center lg:text-left text-gray-800">
           Task App
@@ -57,6 +57,7 @@ const UserSection = () => {
 
         </div>
        
+    </div>
     </div>
   );
 };
