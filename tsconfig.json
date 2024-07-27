@@ -25,6 +25,6 @@
       "@redux/*": ["./redux/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/page.jsx", "app/login/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/page.jsx", "app/login/page.jsx", "components/CustomButton.js"],
   "exclude": ["node_modules"]
 }

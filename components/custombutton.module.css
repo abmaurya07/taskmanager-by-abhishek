@@ -1,0 +1,32 @@
+.loader {
+    border: 4px solid rgba(255, 255, 255, 0.3); /* Light grey */
+    border-left-color: #6d28d9; /* Purple */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Spinning animation */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Button styling */
+  button {
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+  }
+  
+  /* Hide the button during loading */
+  button:disabled {
+    pointer-events: none;
+  }
+  

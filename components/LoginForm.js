@@ -8,10 +8,12 @@ import {jwtDecode} from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '@/redux/UserData/userSlice';
 import WithRedux from '@/utils/WithRedux';
+import CustomButton from './CustomButton';
 
 const LoginForm = () => { 
   const [username, setUsernameState] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const dispatch = useDispatch();
   const router = useRouter(); 
@@ -19,13 +21,19 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     try {
+      setLoading(true);
       const response = await axios.post('/api/login', { username, password });
       console.log(response.data);
       dispatch(setUsername(response.data.username));
+      setLoading(false);
+
       router.push('/dashboard');
     } catch (err) {
       setError('Invalid credentials');
+      setLoading(false);
     }
+
+
   };
 
   useEffect(() => {
@@ -75,12 +83,11 @@ const LoginForm = () => {
           />
           <FaLock className="absolute top-3 right-3 text-gray-400" />
         </div>
-        <button
-          type="submit"
-          className="w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition duration-300"
-        >
+       
+       <CustomButton>
           Login
-        </button>
+          </CustomButton>
+        
       </form>
       <p className="mt-4 text-center text-gray-600">
         Don&lsquo;t have an account?
