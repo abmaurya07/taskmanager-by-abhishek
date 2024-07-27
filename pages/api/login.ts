@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { axiosInstance } from '@utils/axiosInstance';
-import { cookies } from 'next/headers'
 import axios from 'axios';
 
+import Cookies from 'cookies';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 
@@ -17,8 +16,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         console.log('run')
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, { username, password });
 console.log('run after')
+
+const cookies = new Cookies(req, res);
+
       // Set a cookie with the token received from the backend
-      cookies().set('token', response.data.token, {
+      cookies.set('token', response.data.token, {
         httpOnly: true,
         secure: true,
         sameSite: 'lax',
@@ -28,7 +30,7 @@ console.log('run after')
       console.log('run after cookie is set')
 
       // Set a cookie with the refresh token recieved from the backend
-      cookies().set('refreshToken', response.data.refreshToken, {
+      cookies.set('refreshToken', response.data.refreshToken, {
         httpOnly: true,
         secure: true,
         sameSite: 'lax',
