@@ -84,7 +84,7 @@ const LoginForm = () => {
           <FaLock className="absolute top-3 right-3 text-gray-400" />
         </div>
        
-       <CustomButton>
+       <CustomButton type='submit' loading={loading}>
           Login
           </CustomButton>
         

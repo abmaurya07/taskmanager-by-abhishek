@@ -2,6 +2,7 @@ import React from 'react';
 import { MdDelete } from 'react-icons/md';
 import ToolTip from './ToolTip';
 import { FaPlus } from 'react-icons/fa';
+import CustomButton from './CustomButton';
 
 const TaskControls = ({ handleSelectAll, handleDeleteSelected,selectedTasks, allSelected }) => (
   <div className="flex justify-between items-center my-4">

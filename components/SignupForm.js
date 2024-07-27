@@ -16,6 +16,7 @@ const SignupForm = () => {
     const [error, setError] = useState(''); // Store any error messages
     const [usernameError, setUsernameError] = useState(''); // Store any username error messages
     const [passwordError, setPasswordError] = useState(''); // Store any password error messages
+    const [loading, setLoading] = useState(false); // Store button loading state
 
     const router = useRouter();
 
@@ -41,6 +42,8 @@ const SignupForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
 
+        setLoading(true); // Set the loading state to true
+
         // Validate the username and password
         const usernameValidationError = validateUsername(username);
         const passwordValidationError = validatePassword(password);
@@ -49,6 +52,7 @@ const SignupForm = () => {
         if (usernameValidationError || passwordValidationError) {
             setUsernameError(usernameValidationError);
             setPasswordError(passwordValidationError);
+            setLoading(false);
             return;
         }
 
@@ -56,10 +60,14 @@ const SignupForm = () => {
             // Send a POST request to the server to create a new account
   await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/signup`, { username, password });
             // Redirect the user to the login page after successful signup
+            setLoading(false);
+
             router.push('/login');
         } catch (err) {
             // If there is an error creating the account, set the error state variable
             setError('Error creating account');
+            setLoading(false);
+
         }
     };
 
@@ -98,12 +106,9 @@ const SignupForm = () => {
                     {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
                 </div>
                 {/* The submit button */}
-                <button
-                    type="submit"
-                    className="w-full py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition duration-300"
-                >
+             <CustomButton type='submit' loading={loading}>
                     Sign Up
-                </button>
+                    </CustomButton>
             </form>
             {/* Display a link to the login page */}
             <p className="mt-4 text-center text-gray-600">

@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTask, fetchTasks, updateTask } from '../redux/TasksData/tasksActions';
+import CustomButton from './CustomButton';
 
 const TaskForm = ({ task = null, setShowForm }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [status, setStatus] = useState('To Do');
+  const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
   const {page} = useSelector((state) => state.tasks);
+
 
   useEffect(() => {
     if (task) {
@@ -23,6 +26,7 @@ const TaskForm = ({ task = null, setShowForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const newTask = { title, description, dueDate, status };
 
     if (isEditing) {
@@ -32,6 +36,8 @@ const TaskForm = ({ task = null, setShowForm }) => {
     }
 
     dispatch(fetchTasks(page));
+
+    setLoading(false);
 
     setTitle('');
     setDescription('');
@@ -95,12 +101,9 @@ const TaskForm = ({ task = null, setShowForm }) => {
         </div>
       </div>
 
-      <button
-        type="submit"
-        className="w-full bg-purple-600 text-white py-2 px-4 rounded-3xl shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 transition duration-300 ease-in-out"
-      >
+     <CustomButton type='submit' loading={loading}>
         {isEditing ? 'Update Task' : 'Add Task'}
-      </button>
+        </CustomButton>
     </form>);
 };
 

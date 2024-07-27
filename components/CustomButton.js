@@ -19,7 +19,7 @@ const CustomButton = ({
         className={`absolute inset-0 bg-purple-600 text-white rounded-full font-semibold transition-all duration-300 ease-in-out ${
           loading ? "transform scale-0 opacity-0" : "hover:bg-purple-700"
         }`}
-        onClick={onClick}
+        onClick={onClick || (() => {})}
         disabled={loading}
       >
         <span
