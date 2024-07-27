@@ -74,6 +74,7 @@ Sensitive data and configuration values are stored in environment variables. For
 Example `.env.local` file:
 ```plaintext
 NEXT_PUBLIC_API_URL=http://localhost:5000
+```
 ## Dependencies
 - [Next.js](https://nextjs.org/)
 - [Redux](https://redux.js.org/)
