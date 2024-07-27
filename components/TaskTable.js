@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { FaEye, FaSortAmountDownAlt, FaSortAmountUp } from 'react-icons/fa'; 
-import { MdModeEdit, MdDelete } from "react-icons/md";
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { FaEye, FaSortAmountDownAlt, FaSortAmountUp, FaFilter } from 'react-icons/fa';
+import { MdModeEdit, MdDelete } from 'react-icons/md';
 import { sortByDate, setFilterStatus } from '../redux/TasksData/tasksSlice';
 import ToolTip from './ToolTip';
 
@@ -51,16 +51,19 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
                   <div className='flex items-center justify-center'>
                     Status
                     <ToolTip tooltip="Filter by Status">
-                      <select 
-                        onChange={handleFilterChange} 
-                        className="ml-2 border rounded p-1 cursor-pointer"
-                        defaultValue="All"
-                      >
-                        <option value="All">All ({allTasks})</option>
-                        <option value="In Progress">In Progress ({inProgressTasks})</option>
-                        <option value="To Do">To Do ({toDoTasks})</option>
-                        <option value="Done">Done ({doneTasks})</option>
-                      </select>
+                      <div className="relative flex items-center ml-2">
+                        <FaFilter className="absolute left-2 text-gray-500"/>
+                        <select 
+                          onChange={handleFilterChange} 
+                          className="pl-8 border rounded p-1 cursor-pointer"
+                          defaultValue="All"
+                        >
+                          <option value="All">All ({allTasks})</option>
+                          <option value="In Progress">In Progress ({inProgressTasks})</option>
+                          <option value="To Do">To Do ({toDoTasks})</option>
+                          <option value="Done">Done ({doneTasks})</option>
+                        </select>
+                      </div>
                     </ToolTip>
                   </div>
                 </th>
