@@ -7,7 +7,9 @@ import axios from 'axios';
 export const addTask = createAsyncThunk(
   'tasks/createTask',
   async (task: any) => {
-    const response = await axios.post('/api/tasks', task);
+    const response = await axios.post('/api/tasks/addTask', task, {
+      withCredentials: true
+    } );
     return response.data;
   }
 );

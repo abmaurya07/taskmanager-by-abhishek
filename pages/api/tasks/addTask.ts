@@ -7,10 +7,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { task } = req.body;
 
+      console.log('Adding task:', req.cookies);
+
       // Forward the request to the backend server
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks`, task, {
         headers: {
-          Cookie: req.headers.cookie, // Forward cookies to the backend
+          Cookie: req.headers.cookie, 
         },
       });
 
