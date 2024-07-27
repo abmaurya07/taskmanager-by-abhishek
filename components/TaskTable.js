@@ -74,31 +74,31 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
                       </ToolTip>
                     </div>
                     {showFilter && (
-                      <div ref={filterRef} className="absolute bg-white shadow-lg p-2 mt-2 z-10">
+                      <div ref={filterRef} className="absolute top-8 bg-white shadow-lg p-2 mt-2 z-10">
                         <button 
                           onClick={() => handleFilterChange('All')} 
-                          className={`block px-4 py-2 ${allTasks === 0 ? 'cursor-not-allowed text-gray-400' : ''}`} 
+                          className={`block px-4 sm:text-base py-2 ${allTasks === 0 ? 'cursor-not-allowed text-gray-400' : ''}`} 
                           disabled={allTasks === 0}
                         >
                           All ({allTasks})
                         </button>
                         <button 
                           onClick={() => handleFilterChange('In Progress')} 
-                          className={`block px-4 py-2 ${inProgressTasks === 0 ? 'cursor-not-allowed text-gray-400' : ''}`} 
+                          className={`block px-4 sm:text-base py-2 ${inProgressTasks === 0 ? 'cursor-not-allowed text-gray-400' : ''}`} 
                           disabled={inProgressTasks === 0}
                         >
                           In Progress ({inProgressTasks})
                         </button>
                         <button 
                           onClick={() => handleFilterChange('To Do')} 
-                          className={`block px-4 py-2 ${toDoTasks === 0 ? 'cursor-not-allowed text-gray-400' : ''}`} 
+                          className={`block px-4 sm:text-base py-2 ${toDoTasks === 0 ? 'cursor-not-allowed text-gray-400' : ''}`} 
                           disabled={toDoTasks === 0}
                         >
                           To Do ({toDoTasks})
                         </button>
                         <button 
                           onClick={() => handleFilterChange('Done')} 
-                          className={`block px-4 py-2 ${doneTasks === 0 ? 'cursor-not-allowed text-gray-400' : ''}`} 
+                          className={`block px-4 sm:text-base py-2 ${doneTasks === 0 ? 'cursor-not-allowed text-gray-400' : ''}`} 
                           disabled={doneTasks === 0}
                         >
                           Done ({doneTasks})
