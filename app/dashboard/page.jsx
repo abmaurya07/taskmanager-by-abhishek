@@ -16,10 +16,10 @@ import {  deleteSelectedTasks, deleteTask, fetchTasks, getTaskSummary, updateTas
 
 // Components
 import TaskTable from '@components/TaskTable';
-import TaskSummary from '@components//TaskSummary';
-import TaskControls from '@components//TaskControls';
-import TaskModal from '@components//TaskModal';
-import UserSection from '@components//UserSection';
+import TaskSummary from '@components/TaskSummary';
+import TaskControls from '@components/TaskControls';
+import TaskModal from '@components/TaskModal';
+import UserSection from '@components/UserSection';
 
 // Icons
 import { FaPlus } from "react-icons/fa";
