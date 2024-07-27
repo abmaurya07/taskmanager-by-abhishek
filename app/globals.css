@@ -24,6 +24,7 @@ select option:hover {
   
   .cell-max-width{
     max-width: 160px;
+    word-break: break-word;
   }
   .text-red {
     color: #e77f89;

@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const { taskId } = req.query;
       const { token, refreshToken } = req.cookies;
 
-      const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks?id=${taskId}`, {
+      const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks/${taskId}`, {
         headers: {
           'Cookie': `token=${token}; refreshToken=${refreshToken}`,
         },

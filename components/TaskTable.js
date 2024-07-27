@@ -74,13 +74,13 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
               {tasks.map((task, index) => (
                 <tr key={task._id} ref={index === tasks.length - 1 ? lastTaskRef : null} className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}>
                   <td className="py-2 border">
-                    <input 
+                    <input
                       type="checkbox" 
                       onChange={() => handleSelectTask(task._id)} 
                       checked={selectedTasks.includes(task._id)} 
                     />
                   </td>
-                  <td className="px-4 py-2 border">{task.title}</td>
+                  <td className="px-4 py-2 border cell-max-width">{task.title.trim().length > 20 ? task.title.slice(0, 20) + '...' : task.title}</td>
                   <td className="px-4 py-2 border text-start cell-max-width">{task.description.trim().length > 50 ? task.description.slice(0, 50) + '...' : task.description}</td>
                   <td className="px-4 py-2 border">{task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'N/A'}</td>
                   <td className="px-4 py-2 border">
