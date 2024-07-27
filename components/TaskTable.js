@@ -55,13 +55,13 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
                         <FaFilter className="absolute left-2 text-gray-500"/>
                         <select 
                           onChange={handleFilterChange} 
-                          className="pl-8 border rounded p-1 cursor-pointer"
+                          className="pl-8 border rounded p-1 cursor-pointer outline-none bg-transparent"
                           defaultValue="All"
                         >
                           <option value="All">All ({allTasks})</option>
-                          <option value="In Progress">In Progress ({inProgressTasks})</option>
-                          <option value="To Do">To Do ({toDoTasks})</option>
-                          <option value="Done">Done ({doneTasks})</option>
+                          <option disabled={inProgressTasks === 0} value="In Progress">In Progress ({inProgressTasks})</option>
+                          <option  disabled={toDoTasks === 0}value="To Do">To Do ({toDoTasks})</option>
+                          <option  disabled={doneTasks === 0}value="Done">Done ({doneTasks})</option>
                         </select>
                       </div>
                     </ToolTip>
