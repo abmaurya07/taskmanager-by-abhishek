@@ -31,7 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       res.status(200).json(response.data.username);
     } catch (error) {
-      res.status(401).json({ error: 'Invalid credentials' });
+      res.status(401).json({ error: 'Invalid credentials', message: error });
     }
   } else {
     res.status(405).json({ error: 'Method not allowed' });
