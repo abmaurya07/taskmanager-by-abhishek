@@ -1,15 +1,17 @@
 import { useRouter } from 'next/navigation';
 import { AiOutlineLogout } from "react-icons/ai";
 import ToolTip from './ToolTip';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { setUsername } from '@/redux/UserData/userSlice';
 
 const UserSection = () => {
   const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [showMenu, setShowMenu] = useState(false); // State to toggle menu
   const { username } = useSelector(state => state.user);
+  const dispatch = useDispatch()
 
   const handleLogout = async () => {
     const res = await axios.post('/api/logout');
@@ -23,6 +25,12 @@ const UserSection = () => {
   };
 
   useEffect(() => {
+
+    if(username === null || username === undefined || username === '') {
+      const queryUsername = router.query.username;
+
+      dispatch(setUsername(queryUsername))
+    }
     const handleScroll = () => {
       if (window.scrollY > 0) {
         setIsScrolled(true);
