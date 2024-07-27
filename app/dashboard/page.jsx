@@ -21,8 +21,6 @@ import TaskControls from '@components/TaskControls';
 import TaskModal from '@components/TaskModal';
 import UserSection from '@components/UserSection';
 
-// Icons
-import { FaPlus } from "react-icons/fa";
 import WithRedux from '@/utils/WithRedux';
 
 const Dashboard = () => {
@@ -115,7 +113,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-8 ">
+    <div className="p-8" style={{paddingTop: '100px'}}>
       <UserSection />
       <div className="flex justify-between items-center mb-10">
         <h1 className="text-2xl font-semibold text-gray-800">Tasks Summary</h1>
