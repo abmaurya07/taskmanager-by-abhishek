@@ -118,14 +118,8 @@ const Dashboard = () => {
     <div className="p-8 ">
       <UserSection />
       <div className="flex justify-between items-center mb-10">
-        <h1 className="text-2xl font-semibold text-gray-800">Tasks Dashboard</h1>
-        <button
-          onClick={() => setShowForm(true)}
-          className="flex items-center space-x-2 p-3 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-300"
-        >
-          <FaPlus />
-          <span> New Task</span>
-        </button>
+        <h1 className="text-2xl font-semibold text-gray-800">Tasks Summary</h1>
+   
       </div>
       <TaskSummary taskSummary={taskSummary} />
       {tasks.length !== 0 && <TaskControls
@@ -133,6 +127,7 @@ const Dashboard = () => {
         handleDeleteSelected={handleDeleteSelected}
         selectedTasks={selectedTasks}
         allSelected={selectedTasks.length === filteredTasks.length}
+        setShowForm={setShowForm}
       />}
       <TaskTable
         tasks={filteredTasks}
@@ -143,6 +138,7 @@ const Dashboard = () => {
         handleViewTask={handleViewTask}
         lastTaskRef={lastTaskRef}
         handleDelete={handleDelete}
+        
       />
       <TaskModal showForm={showForm} setShowForm={setShowForm} />
       {showEditForm && selectedTask && (

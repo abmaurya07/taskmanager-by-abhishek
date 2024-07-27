@@ -1,10 +1,12 @@
 import React from 'react';
 import { MdDelete } from 'react-icons/md';
 import ToolTip from './ToolTip';
+import { FaPlus } from 'react-icons/fa';
 
 const TaskControls = ({ handleSelectAll, handleDeleteSelected,selectedTasks, allSelected }) => (
   <div className="flex justify-between items-center my-4">
     <div>
+    <div className='mr-2'>
       <input 
         type="checkbox" 
         onChange={handleSelectAll} 
@@ -22,6 +24,18 @@ const TaskControls = ({ handleSelectAll, handleDeleteSelected,selectedTasks, all
     </div>
         </ToolTip>
     }
+
+    </div>
+
+    
+
+<button
+          onClick={() => setShowForm(true)}
+          className="flex items-center space-x-2 p-3 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-300"
+        >
+          <FaPlus />
+          <span> New Task</span>
+        </button>
 
 
   </div>

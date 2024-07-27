@@ -4,6 +4,7 @@ import Cookie from 'js-cookie';
 import { AiOutlineLogout } from "react-icons/ai";
 import ToolTip from './ToolTip';
 import { useSelector } from 'react-redux';
+import Image from 'next/image';
 
 
 const UserSection = () => {
@@ -16,7 +17,15 @@ const UserSection = () => {
   };
 
   return (
-    <div className="flex items-center justify-end pr-5 mb-5">
+    <div className="flex items-center justify-between pr-5 mb-5">
+
+      <Image
+        src="/logo.png"
+        alt="Logo"
+        width={50}
+        height={50}
+        className="rounded-full"
+        />
 
         <h1 className="text-2xl font-bold text-gray-800 mr-4">Welcome {username}!</h1>
         <ToolTip tooltip='Logout'>
