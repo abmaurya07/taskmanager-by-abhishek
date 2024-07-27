@@ -7,6 +7,7 @@ import ToolTip from './ToolTip';
 
 const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange, handleEditTask, handleViewTask, lastTaskRef, handleDelete, handleSelectAll, allSelected }) => {
   const [sortingOrder, setSortingOrder] = useState('asc');
+  const [filterStatus, setFilterStatusState] = useState('All');
   const dispatch = useDispatch();
   const { taskSummary } = useSelector((state) => state.tasks);
 
@@ -19,6 +20,7 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
 
   const handleFilterChange = (event) => {
     const status = event.target.value;
+    setFilterStatusState(status);
     dispatch(setFilterStatus(status));
   };
 
@@ -33,6 +35,26 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
           <div className="block lg:hidden">
             {/* Mobile Card Layout */}
             <div className="space-y-4">
+              {/* Status Filter for Mobile */}
+              <div className='flex items-center justify-center mb-4'>
+                      Status
+                      <ToolTip tooltip="Filter by Status">
+                        <div className="relative flex items-center ml-2">
+                          <FaFilter className="absolute left-2"/>
+                          <select 
+                            onChange={handleFilterChange} 
+                            className="pl-8 border rounded p-1 cursor-pointer outline-none bg-transparent"
+                            defaultValue="All"
+                          >
+                            <option value="All">All ({allTasks})</option>
+                            <option disabled={inProgressTasks === 0} value="In Progress">In Progress ({inProgressTasks})</option>
+                            <option disabled={toDoTasks === 0} value="To Do">To Do ({toDoTasks})</option>
+                            <option disabled={doneTasks === 0} value="Done">Done ({doneTasks})</option>
+                          </select>
+                        </div>
+                      </ToolTip>
+                    </div>
+
               {tasks.map((task, index) => (
                 <div key={task._id} className={`p-4 border rounded-lg ${index % 2 === 0 ? "bg-white" : "bg-gray-100"}`}>
                   <div className="flex justify-between items-center">

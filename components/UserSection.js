@@ -49,7 +49,7 @@ const UserSection = () => {
           <h1 className="text-2xl lg:text-3xl font-extrabold text-center lg:text-left text-gray-800">
             Task App
           </h1>
-          <strong className="text-sm lg:text-md text-gray-700 mt-2 lg:mt-0 lg:ml-4">
+          <strong className="text-sm lg:text-md text-gray-700 mt-2 lg:mt-4 lg:ml-4">
             by Abhishek Maurya
           </strong>
         </div>
