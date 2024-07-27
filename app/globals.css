@@ -5,6 +5,7 @@
 
 body {
         background-color: #f4f7fc;
+        word-break: break-word;
     }
   
 select {
@@ -24,7 +25,6 @@ select option:hover {
   
   .cell-max-width{
     max-width: 160px;
-    word-break: break-word;
   }
   .text-red {
     color: #e77f89;

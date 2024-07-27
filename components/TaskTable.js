@@ -98,7 +98,8 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
                       <option value="Done" className="bg-green-100 text-green">Done</option>
                     </select>
                   </td>
-                  <td className="px-4 py-2 border flex items-center justify-center">
+                  <td className="px-4 py-2 ">
+                    <div className='flex'>
                     <ToolTip tooltip="View Task" placement='bottom-full'>
                       <FaEye size={20} color='#58D68D' className='m-2 cursor-pointer' onClick={() => handleViewTask(task)} />
                     </ToolTip> 
@@ -108,6 +109,7 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
                     <ToolTip tooltip="Delete Task" placement='bottom-full'>
                       <MdDelete size={20} color='#E74C3C' className='cursor-pointer' onClick={() => handleDelete(task._id)} />
                     </ToolTip>
+                    </div>
                   </td>
                 </tr>
               ))}

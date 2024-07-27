@@ -22,7 +22,7 @@ const TaskView = ({ task }) => {
   return (
     <div className="space-y-4 p-4 bg-white border border-gray-300 rounded-md shadow-sm">
       <div>
-        <h2 className="text-xl font-bold flex items-center">
+        <h2 className="text-xl font-bold flex items-start">
           <FaClipboardList className="mr-2" />
           {title}
         </h2>
