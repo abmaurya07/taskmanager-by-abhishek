@@ -34,12 +34,12 @@ const UserSection = () => {
   }, []);
 
   return (
-    <div className={`fixed top-0 left-0 z-50 w-full bg-white transition-shadow ${isScrolled ? 'shadow-lg' : ''}`}>
-    <div className={`flex items-center justify-between pr-5 pl-5 mb-5`}>
+    <div className={`fixed top-0 left-0 z-50 w-full mb-5 bg-white transition-shadow ${isScrolled ? 'shadow-lg' : ''}`}>
+    <div className={`flex items-center justify-between p-4 pr-5 pl-5`}>
 
-<h1 className="text-3xl lg:text-4xl font-extrabold mb-6 text-center lg:text-left text-gray-800">
+<h1 className="text-2xl lg:text-3xl font-extrabold mb-6 text-center lg:text-left text-gray-800">
           Task App
-          <strong className="text-base lg:text-lg text-gray-700 ml-4 mb-6 text-center lg:text-left">
+          <strong className="text-sm lg:text-md text-gray-700 ml-4 mb-6 text-center lg:text-left">
          by Abhishek Maurya
         </strong>
         </h1>
