@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const { taskId, status } = req.body;
       const { token, refreshToken } = req.cookies;
 
-      const response = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks/status/${taskId}`, { status }, {
+      const response = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks/${taskId}`, { status }, {
         headers: {
           'Cookie': `token=${token}; refreshToken=${refreshToken}`,
         },
