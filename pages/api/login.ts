@@ -18,13 +18,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         path: '/'
       }));
 
-      res.setHeader('Set-Cookie', cookie.serialize('refreshToken', response.data.refreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'lax',
-        maxAge: 60 * 60 * 24 * 7, // 1 week
-        path: '/'
-      }));
+    //   res.setHeader('Set-Cookie', cookie.serialize('refreshToken', response.data.refreshToken, {
+    //     httpOnly: true,
+    //     secure: true,
+    //     sameSite: 'lax',
+    //     maxAge: 60 * 60 * 24 * 7, // 1 week
+    //     path: '/'
+    //   }));
 
       res.status(200).json({ username: response.data.username });
     } catch (error:any) {
