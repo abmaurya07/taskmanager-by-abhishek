@@ -36,8 +36,8 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
             {/* Mobile Card Layout */}
             <div className="space-y-4">
               {/* Status Filter for Mobile */}
-              <div className='flex items-center justify-center mb-4'>
-                      Status
+              <div className='flex items-center justify-start mb-4'>
+                      Filter by Status
                       <ToolTip tooltip="Filter by Status">
                         <div className="relative flex items-center ml-2">
                           <FaFilter className="absolute left-2"/>
