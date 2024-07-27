@@ -25,28 +25,37 @@ export const updateTask = createAsyncThunk(
 );
 
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (page: number) => {
-    const response = await axiosInstance.get(`/api/tasks?page=${page}`);
+    const response = await axios.get(`/api/tasks/fetchTasks?page=${page}`, {
+      withCredentials: true
+    });
     return response.data;
 });
 
 export const deleteTask = createAsyncThunk('tasks/deleteTask', async (taskId: string) => {
-    await axiosInstance.delete(`/api/tasks/${taskId}`);
+    await axios.delete(`/api/tasks?taskId=${taskId}`,{
+      withCredentials: true
+    });
     return taskId;
 });
 
 export const deleteSelectedTasks = createAsyncThunk('tasks/deleteSelectedTasks', async (taskIds: string[]) => {
-    await axiosInstance.delete('/api/tasks/bulk-delete', {
-      data: { ids: taskIds }
-    });
+    await axios.delete('/api/tasks/bulkDelete', {
+      data: { ids: taskIds },
+      withCredentials: true
+    }, );
     return taskIds;
 });
 
 export const updateTaskStatus = createAsyncThunk('tasks/updateTaskStatus', async ({ taskId, status }: { taskId: string, status: string }) => {
-    await axiosInstance.put(`/api/tasks/${taskId}`, { status });
+    await axios.put(`/api/tasks/updateTaskStatus`, { taskId,status }, {
+      withCredentials: true
+    });
     return { taskId, status };
 });
 
 export const getTaskSummary = createAsyncThunk('tasks/getTaskSummary', async () => {
-    const response = await axiosInstance.get('/api/tasks/summary');
+    const response = await axios.get('/api/tasks/summary', {
+      withCredentials: true
+    });
     return response.data;
 });
