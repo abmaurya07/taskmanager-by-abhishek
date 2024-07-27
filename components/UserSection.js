@@ -13,8 +13,8 @@ const UserSection = () => {
 
   const handleLogout = async () => {
     const res = await axios.post('/api/logout');
-  
-    if (res.ok) {
+    
+    if (res.status === 200) {
       router.push('/login'); // Redirect to login page
     } else {
       // Handle error
