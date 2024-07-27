@@ -8,26 +8,29 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, { username, password });
-      console.log('Token:', response.data.token); // Debugging line
 
-      res.setHeader('Set-Cookie', cookie.serialize('token', response.data.token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'lax',
-        maxAge: 60 * 60 * 1, // 1 hour
-        path: '/'
-      }));
+      // Setting cookies in a single `Set-Cookie` header
+      const cookies = [
+        cookie.serialize('token', response.data.token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          maxAge: 60 * 60 * 1, // 1 hour
+          path: '/'
+        }),
+        cookie.serialize('refreshToken', response.data.refreshToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          maxAge: 60 * 60 * 24 * 7, // 1 week
+          path: '/'
+        })
+      ];
 
-    //   res.setHeader('Set-Cookie', cookie.serialize('refreshToken', response.data.refreshToken, {
-    //     httpOnly: true,
-    //     secure: true,
-    //     sameSite: 'lax',
-    //     maxAge: 60 * 60 * 24 * 7, // 1 week
-    //     path: '/'
-    //   }));
+      res.setHeader('Set-Cookie', cookies);
 
       res.status(200).json({ username: response.data.username });
-    } catch (error:any) {
+    } catch (error: any) {
       res.status(401).json({ error: 'Invalid credentials', message: error.message });
     }
   } else {
