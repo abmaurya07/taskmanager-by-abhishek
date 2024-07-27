@@ -6,7 +6,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { token, refreshToken } = req.cookies;
 
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks/summary`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/tasks/getTaskSummary`, {
         headers: {
           'Cookie': `token=${token}; refreshToken=${refreshToken}`,
         },
