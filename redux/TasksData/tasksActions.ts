@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosInstance } from '@utils/axiosInstance'
+import axios from 'axios';
 
 
 
 export const addTask = createAsyncThunk(
   'tasks/createTask',
   async (task: any) => {
-    const response = await axiosInstance.post('/api/tasks', task);
+    const response = await axios.post('/api/tasks', task);
     return response.data;
   }
 );
