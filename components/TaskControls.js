@@ -4,7 +4,7 @@ import ToolTip from './ToolTip';
 import { FaPlus } from 'react-icons/fa';
 import CustomButton from './CustomButton';
 
-const TaskControls = ({ handleSelectAll, handleDeleteSelected,selectedTasks, allSelected }) => (
+const TaskControls = ({ handleSelectAll, handleDeleteSelected,selectedTasks, allSelected, setShowForm }) => (
   <div className="flex justify-between items-center my-4">
     <div className="flex items-start">
     <div className='mr-2'>
