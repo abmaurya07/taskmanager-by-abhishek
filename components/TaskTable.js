@@ -58,7 +58,7 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
               {tasks.map((task, index) => (
                 <div key={task._id} className={`p-4 border rounded-lg ${index % 2 === 0 ? "bg-white" : "bg-gray-100"}`}>
                   <div className="flex justify-between items-center">
-                    <div>
+                    <div className='mr-3'>
                       <h3 className="text-lg font-semibold">{task.title}</h3>
                       <p className="text-sm text-gray-600">{task.description}</p>
                     </div>

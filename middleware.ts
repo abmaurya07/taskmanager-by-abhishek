@@ -30,6 +30,7 @@ export async function middleware(req: NextRequest) {
 
   if(req.nextUrl.pathname === '/login' && !token && refreshToken) {
     const response = await axios.post('/api/refresh-token', {}, { withCredentials: true });
+    console.log('response.data:', response.data);
     return NextResponse.redirect(new URL(`/dashboard?page=${response.data.username}`, req.url));
   }
 
