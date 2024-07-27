@@ -23,6 +23,7 @@ import UserSection from '@components//UserSection';
 
 // Icons
 import { FaPlus } from "react-icons/fa";
+import WithRedux from '@/utils/WithRedux';
 
 const Dashboard = () => {
   // Set the initial state of the showForm variable to false.
@@ -154,4 +155,4 @@ const Dashboard = () => {
   );
 };
 
-export default withAuth(Dashboard);
+export default <WithRedux><Dashboard /></WithRedux>;
