@@ -37,29 +37,35 @@ const SignupForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
+    
         const usernameValidationError = validateUsername(username);
         const passwordConditions = validatePassword(password);
         const passwordValidationError = Object.values(passwordConditions).includes(false)
             ? 'Password must meet all the conditions'
             : '';
-
+    
         if (usernameValidationError || passwordValidationError) {
             setUsernameError(usernameValidationError);
             setPasswordError(passwordValidationError);
             setLoading(false);
             return;
         }
-
+    
         try {
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/signup`, { username, password });
             setLoading(false);
             router.push('/login');
         } catch (err) {
-            setError('Error creating account');
+            console.log(err);
+            if (err.response && err.response.status === 409) {
+                setError('Username already exists. Please choose another one.');
+            } else {
+                setError('Error creating account');
+            }
             setLoading(false);
         }
     };
+    
 
     const passwordConditions = validatePassword(password);
 
