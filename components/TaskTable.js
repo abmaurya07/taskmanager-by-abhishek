@@ -59,8 +59,8 @@ const TaskTable = ({ tasks, selectedTasks, handleSelectTask, handleStatusChange,
                 <div key={task._id} className={`p-4 border rounded-lg ${index % 2 === 0 ? "bg-white" : "bg-gray-100"}`}>
                   <div className="flex justify-between gap-3 items-center">
                     <div >
-                      <h3 className="text-lg font-semibold">{task.title}</h3>
-                      <p className="text-sm text-gray-600">{task.description}</p>
+                      <h3 className="text-lg font-semibold break-words">{task.title}</h3>
+                      <p className="text-sm text-gray-600 break-words">{task.description}</p>
                     </div>
                     <div className="flex items-center space-x-2">
                       <ToolTip tooltip="View Task">
