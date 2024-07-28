@@ -23,12 +23,12 @@ const TaskView = ({ task }) => {
     <div className="space-y-4 p-4 bg-white border border-gray-300 rounded-md shadow-sm">
       <div className='flex items-start'>
           <FaClipboardList size={20} className="mr-2" />
-        <h2 className="text-xl font-bold break-words" style={{margintTop: '-2px'}}>
+        <h2 className="text-xl font-bold break-the-work" style={{margintTop: '-2px'}}>
           {title}
         </h2>
       </div>
       <div>
-        <p className="text-sm text-gray-700 break-words	"><strong>Description:</strong> {description}</p>
+        <p className="text-sm text-gray-700 break-the-work	"><strong>Description:</strong> {description}</p>
       </div>
       <div className="flex items-center space-x-2">
         <FaCalendarAlt className="text-gray-500" />

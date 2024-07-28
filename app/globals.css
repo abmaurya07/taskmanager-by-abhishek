@@ -21,6 +21,10 @@ select option:hover {
     color: inherit; /* Prevent text color change */
   }
 
+  .break-the-work {
+    word-break: break-word;
+
+  }
   
   .cell-max-width{
     max-width: 160px;
